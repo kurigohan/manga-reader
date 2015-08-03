@@ -1,0 +1,17 @@
+﻿@section AddToHead{
+    <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css" />
+}
+<div class="container" ng-app="mangaReader">
+    <div ui-view></div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/Scripts/app/module.js")
+    @Scripts.Render("~/Scripts/app/routes.js")
+    @Scripts.Render("~/Scripts/app/components/shared/mangaService.js")
+    @Scripts.Render("~/Scripts/app/components/shared/mangaListDirective.js")
+    @Scripts.Render("~/Scripts/app/components/home/homeController.js")
+    @Scripts.Render("~/Scripts/app/components/viewer/mangaViewerController.js")
+    @Scripts.Render("~/Scripts/app/components/viewer/pageNavigationDirective.js")
+}

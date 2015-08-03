@@ -1,0 +1,16 @@
+﻿.manga {
+    padding: 1em;
+}
+
+.pagination-nav {
+    padding-top: 3em;
+}
+
+.manga-page{
+    margin-top: 1em;
+}
+
+page-navigation{
+    padding: 0.5em;
+    display: block;
+}
