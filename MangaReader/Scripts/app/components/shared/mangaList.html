@@ -1,0 +1,26 @@
+﻿<!-- <div class="row manga" ng-repeat="manga in data"> -->
+    <div class="manga col-md-6" ng-repeat="manga in data">
+    <div class="col-md-4">
+        <a ui-sref="viewer({manga: manga})"><img ng-src="{{ manga.path + '/' + 'thumbnail.jpg' }}" style="width: 140px; height:202px" /></a>
+</div>
+    <div class="col-md-8">
+        <h2><a ui-sref="viewer({manga: manga})">{{ manga.name }}</a></h2>
+        <div class="row">
+            <div class="col-md-4">Artist</div>
+            <div class="col-md-8">{{ manga.artist }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Series</div>
+            <div class="col-md-8">{{ manga.series }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Language</div>
+            <div class="col-md-8">{{ manga.language }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Tags</div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+</div>
+<!--</div>-->
