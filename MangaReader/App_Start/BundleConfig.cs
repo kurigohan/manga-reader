@@ -29,7 +29,9 @@ namespace MangaReader
 
             bundles.Add(new ScriptBundle("~/bundles/angular")
                 .Include("~/Scripts/bower_components/angular/angular.min.js")
-                .Include("~/Scripts/bower_components/angular-ui-router/release/angular-ui-router.min.js"));
+                .Include("~/Scripts/bower_components/angular-ui-router/release/angular-ui-router.min.js")
+                .Include("~/Scripts/bower_components/angular-bootstrap/ui-bootstrap.min.js")
+                .Include("~/Scripts/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"));
         }
     }
 }

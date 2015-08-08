@@ -13,7 +13,7 @@
                 control: '=',
                 pagePath: '='
             },
-            templateUrl: '/Scripts/app/components/viewer/pageNavigation.html',
+            templateUrl: 'components/viewer/pageNavigation.html',
             link: function (scope) {
                 scope.currentPage = 1;
                 scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);

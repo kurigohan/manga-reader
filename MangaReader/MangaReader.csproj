@@ -219,8 +219,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\components\home\home.html" />
     <Content Include="Scripts\app\components\home\homeController.js" />
-    <Content Include="Scripts\app\components\shared\mangaList.html" />
-    <Content Include="Scripts\app\components\shared\mangaListDirective.js" />
+    <Content Include="Scripts\app\components\home\mangaList.html" />
+    <Content Include="Scripts\app\components\home\mangaListDirective.js" />
+    <Content Include="Scripts\app\components\shared\appSettings.js" />
     <Content Include="Scripts\app\components\shared\mangaModel.js" />
     <Content Include="Scripts\app\components\shared\mangaService.js" />
     <Content Include="Scripts\app\components\viewer\mangaViewer.html" />

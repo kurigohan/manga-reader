@@ -17,7 +17,7 @@ namespace MangaReader.Controllers.API
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Manga
+        // GET: api/manga
         [Route("")]
         public IQueryable<MangaDTO> GetManga()
         {
@@ -38,7 +38,7 @@ namespace MangaReader.Controllers.API
             return manga;
         }
 
-        // GET: api/Manga/5
+        // GET: api/manga/5
         [Route("{id:int}")]
         [ResponseType(typeof(MangaDTO))]
         public IHttpActionResult GetManga(int id)
@@ -73,9 +73,22 @@ namespace MangaReader.Controllers.API
 
             var mangaQuery = db.Manga.ToList();
 
-            var mangaList = mangaQuery.Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize);
-
+            var mangaList = mangaQuery
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .Select(m => new MangaDTO
+                            {
+                                Id = m.Id,
+                                Name = m.Name,
+                                Series = m.Series.Name,
+                                Collection = m.Collection.Name,
+                                Artist = m.Artist.Name,
+                                Language = m.Language.Name,
+                                PageCount = m.PageCount,
+                                Path = m.Path,
+                                Date = m.Date
+                            });
+                              
             var result = new
             {
                 TotalCount = totalCount,

@@ -1,1 +1,6 @@
-﻿<manga-list data="::Home.mangaList"></manga-list>
+﻿<manga-list data="Home.mangaListPage.mangaList"></manga-list>
+<pagination ng-model="Home.currentPage"
+            total-items="Home.mangaListPage.totalCount"
+            items-per-page="::Home.itemsPerPage"
+            ng-change="Home.pageChanged()">
+</pagination>

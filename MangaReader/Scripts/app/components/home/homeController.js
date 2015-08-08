@@ -4,9 +4,20 @@
         .module('mangaReader')
         .controller('HomeController', HomeController)
 
-    HomeController.$inject = ['mangaList'];
-    function HomeController(mangaList){
+    HomeController.$inject = ['mangaListPage', 'MangaService', 'AppSettings'];
+    function HomeController(mangaListPage, MangaService, AppSettings) {
         var vm = this;
-        vm.mangaList = mangaList;
+        vm.currentPage = 1;
+        vm.mangaListPage = mangaListPage;
+        vm.itemsPerPage = AppSettings.itemsPerPage;
+
+        vm.pageChanged = function () {
+            console.log('pageChanged');
+            MangaService
+                .getMangaListPage(vm.itemsPerPage, vm.currentPage)
+                .then(function (page) {
+                    vm.mangaListPage = page;
+                 });
+        };
     }
 })();

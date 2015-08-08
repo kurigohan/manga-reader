@@ -18,18 +18,20 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: '/Scripts/app/components/home/home.html',
+                templateUrl: 'components/home/home.html',
                 controller: 'HomeController',
                 controllerAs: 'Home',
                 resolve: {
-                    mangaList: ['MangaService', function (MangaService) {
-                        return MangaService.getManga();
+                    mangaListPage: ['MangaService', 'AppSettings',
+                        function (MangaService, AppSettings) {
+                            return MangaService
+                                    .getMangaListPage(AppSettings.itemsPerPage, 1);
                     }]
                 }
             })
             .state('viewer', {
                 url: '/viewer',
-                templateUrl: '/Scripts/app/components/viewer/mangaViewer.html',
+                templateUrl: 'components/viewer/mangaViewer.html',
                 controller: 'MangaViewerController',
                 controllerAs: 'Viewer',
                 params: { manga: null }

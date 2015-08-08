@@ -11,7 +11,7 @@
             scope: {
                 data: '='
             },
-            templateUrl: '/Scripts/app/components/shared/mangaList.html'
+            templateUrl: 'components/home/mangaList.html'
         }
     };
 
