@@ -1,5 +1,6 @@
-﻿<div class="text-center row" style="padding: .5em">
+﻿
+    <button ng-click="nav.firstPage()" class="btn btn-default" ng-disabled="currentPage == 1">First</button>
     <button ng-click="nav.prevPage()" class="btn btn-default" ng-disabled="currentPage == 1">Prev</button>
     {{ currentPage }} of {{ ::manga.pageCount }}
     <button ng-click="nav.nextPage()" class="btn btn-default" ng-disabled="currentPage == manga.pageCount">Next</button>
-</div>
+    <button ng-click="nav.lastPage()" class="btn btn-default" ng-disabled="currentPage == manga.pageCount">Last</button>

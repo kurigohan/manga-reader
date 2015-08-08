@@ -16,7 +16,6 @@
             }
         }
 
-
         function setItemsPerPage(value) {
             itemsPerPage = value;
         }

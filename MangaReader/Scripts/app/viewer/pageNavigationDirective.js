@@ -13,7 +13,7 @@
                 control: '=',
                 pagePath: '='
             },
-            templateUrl: 'components/viewer/pageNavigation.html',
+            templateUrl: 'viewer/pageNavigation.html',
             link: function (scope) {
                 scope.currentPage = 1;
                 scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
@@ -33,6 +33,22 @@
                         scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
                     }
                 };
+
+                scope.nav.firstPage = function () {
+                    if (scope.currentPage > 1) {
+                        scope.currentPage = 1;
+                        scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                    }
+                };
+
+                scope.nav.lastPage = function () {
+                    if (scope.currentPage < scope.manga.pageCount) {
+                        scope.currentPage = scope.manga.pageCount;
+                        scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                    }
+                }
+
+
             }
         }
     };

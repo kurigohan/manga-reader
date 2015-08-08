@@ -1,0 +1,11 @@
+﻿<div class="row">
+    <manga-list data="Home.mangaListPage.mangaList"></manga-list>
+</div>
+<div class="row text-center">
+    <pagination ng-model="Home.currentPage"
+                total-items="Home.mangaListPage.totalCount"
+                items-per-page="::Home.itemsPerPage"
+                boundary-links="true"
+                ng-change="Home.pageChanged()">
+    </pagination>
+</div>

@@ -5,7 +5,8 @@
         .factory("Manga", MangaModel);
 
     function MangaModel() {
-        function Manga(name, artist, series, collection, language, date, pageCount, path) {
+        function Manga(id, name, artist, series, collection, language, date, pageCount, path) {
+            this.id = id;
             this.name = name;
             this.artist = artist;
             this.series = series;
@@ -28,6 +29,7 @@
          */
         Manga.build = function (data) {
             return new Manga(
+                data.id,
                 data.name,
                 data.artist,
                 data.series,

@@ -9,6 +9,7 @@
         return {
             getMangaList: getMangaList,
             getMangaListPage: getMangaListPage,
+            getMangaDetails: getMangaDetails,
             getPagePath: getPagePath
         };
 
@@ -31,6 +32,13 @@
                         data.mangaList = Manga.fromJson(data.mangaList);
                         return data;
                     });
+        }
+
+        function getMangaDetails(mangaId) {
+            return $http
+                    .get('/api/manga/' + mangaId)
+                    .then(success)
+                    .then(Manga.fromJson);
         }
 
         function getPagePath(mangaPath, pageNum) {

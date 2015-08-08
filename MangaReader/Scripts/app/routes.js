@@ -18,7 +18,7 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: 'components/home/home.html',
+                templateUrl: 'home/home.html',
                 controller: 'HomeController',
                 controllerAs: 'Home',
                 resolve: {
@@ -31,10 +31,23 @@
             })
             .state('viewer', {
                 url: '/viewer',
-                templateUrl: 'components/viewer/mangaViewer.html',
+                templateUrl: 'viewer/mangaViewer.html',
                 controller: 'MangaViewerController',
                 controllerAs: 'Viewer',
                 params: { manga: null }
+            })
+            .state('details', {
+                url: '/details/:mangaId',
+                templateUrl: 'details/mangaDetails.html',
+                controller: 'MangaDetailsController',
+                controllerAs: 'Details',
+                resolve: {
+                    manga: ['$stateParams', 'MangaService',
+                        function ($stateParams, MangaService) {
+                            return MangaService
+                                    .getMangaDetails($stateParams.mangaId);
+                        }]
+                }
             });
 
     }
