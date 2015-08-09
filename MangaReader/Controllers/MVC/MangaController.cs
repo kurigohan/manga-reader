@@ -25,6 +25,8 @@ namespace MangaReader.Controllers.MVC
         private readonly int MAX_PAGE_WIDTH = Int32.Parse(WebConfigurationManager.AppSettings["MaxPageWidth"]);
         private readonly int THUMBNAIL_WIDTH = Int32.Parse(WebConfigurationManager.AppSettings["ThumbnailWidth"]);
         private readonly int THUMBNAIL_HEIGHT = Int32.Parse(WebConfigurationManager.AppSettings["ThumbnailHeight"]);
+        private readonly int PREVIEW_WIDTH = Int32.Parse(WebConfigurationManager.AppSettings["PreviewWidth"]);
+        private readonly int PREVIEW_HEIGHT = Int32.Parse(WebConfigurationManager.AppSettings["PreviewHeight"]);
 
         // GET: Manga
         public ActionResult Index()
@@ -228,6 +230,7 @@ namespace MangaReader.Controllers.MVC
                         OptimizePages(saveDir);
                     }
 
+                    CreatePagePreviews(saveDir);
                     CreateThumbnail(Path.Combine(saveDir, "1.jpg"));
                 }
 
@@ -262,13 +265,26 @@ namespace MangaReader.Controllers.MVC
             }
             return pageCount;
         }
-
-        private void CreateThumbnail(string imgPath)
+            
+        private void SaveAsNewSize(string imgPath, int width, int height, string name)
         {
             using (var origImg = Image.FromFile(imgPath, true))
             {
-                var img = new Bitmap(origImg, new Size(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT));
-                img.Save(Path.Combine(Path.GetDirectoryName(imgPath), "thumbnail.jpg"), ImageFormat.Jpeg);
+                var img = new Bitmap(origImg, new Size(width, height));
+                img.Save(Path.Combine(Path.GetDirectoryName(imgPath), name + ".jpg"), ImageFormat.Jpeg);
+            }
+        }
+
+        private void CreateThumbnail(string imgPath)
+        {
+            SaveAsNewSize(imgPath, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, "thumbnail");
+        }
+
+        private void CreatePagePreviews(string dir)
+        {
+            string[] imgPaths = Directory.GetFiles(dir);
+            foreach (var imgPath in imgPaths){
+                SaveAsNewSize(imgPath, PREVIEW_WIDTH, PREVIEW_HEIGHT, Path.GetFileNameWithoutExtension(imgPath) + "p");
             }
         }
 

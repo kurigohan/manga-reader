@@ -4,22 +4,13 @@
         .module('mangaReader')
         .controller('MangaViewerController', MangaViewerController);
 
-    MangaViewerController.$inject = [
-        '$state',
-        '$stateParams'
-    ];
+    MangaViewerController.$inject = ['manga', 'pageStart'];
 
-    function MangaViewerController(
-        $state,
-        $stateParams
-    ) {
-        if (!$stateParams.manga) {
-            $state.go('home');
-        }
-
+    function MangaViewerController(manga, pageStart) {
         var vm = this;
-        vm.manga = $stateParams.manga;
+        vm.manga = manga;
         vm.pagePath = '';
+        vm.currentPage = parseInt(pageStart);
         vm.outerControl = {}; // binds to navControl in pageNavigation directive
     }
 })();

@@ -7,11 +7,16 @@ div.manga{
     padding: 1em 0 1em 0;
     margin: .5em 0 .5em 0;
     background-color: whitesmoke;
-    border: 1px solid gray;
+    border: 1px solid darkgray;
 }
 
 div.manga-list{
     padding-right:0;
+}
+
+img.manga-thumbnail{
+    width: 140px;
+    height:202px;
 }
 
 /* viewer */
@@ -29,7 +34,19 @@ div.manga-viewer{
 }
 
 /* details */
-img.manga-cover {
-     width: 350px;
-     height: 512px;
+img.manga-cover{
+    width: 350px;
+    height: 512px;
 }
+
+div.manga-preview{
+    background-color: dimgray;
+    margin-top: 1em;
+}
+
+img.page-preview{
+    width: 200px;
+    height: 283px;
+    padding: 1em;
+}
+

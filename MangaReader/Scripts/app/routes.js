@@ -6,13 +6,16 @@
     
     routeConfig.$inject = [
         '$urlRouterProvider',
-        '$stateProvider'
+        '$stateProvider',
+        '$uiViewScrollProvider'
     ];
 
     function routeConfig(
         $urlRouterProvider,
-        $stateProvider
+        $stateProvider,
+        $uiViewScrollProvider
     ) {
+        $uiViewScrollProvider.useAnchorScroll();
         $urlRouterProvider.otherwise('/home');
 
         $stateProvider
@@ -30,11 +33,25 @@
                 }
             })
             .state('viewer', {
-                url: '/viewer',
+                url: '/viewer/:mangaId/:pageStart?',
                 templateUrl: 'viewer/mangaViewer.html',
                 controller: 'MangaViewerController',
                 controllerAs: 'Viewer',
-                params: { manga: null }
+                params: { manga: null },
+                resolve: {
+                    manga: ['$stateParams', 'MangaService',
+                        function ($stateParams, MangaService) {
+                            console.log($stateParams.mangaId);
+                            if ($stateParams.manga) {
+                                return $stateParams.manga;
+                            }
+                            return MangaService
+                                    .getMangaDetails($stateParams.mangaId);
+                        }],
+                    pageStart: ['$stateParams', function ($stateParams) {
+                        return $stateParams.pageStart || 1;
+                    }]
+                }
             })
             .state('details', {
                 url: '/details/:mangaId',

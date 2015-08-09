@@ -27,10 +27,10 @@ namespace MangaReader.Controllers.API
                         {
                             Id = m.Id,
                             Name = m.Name,
-                            Series = m.Series.Name,
-                            Collection = m.Collection.Name,
-                            Artist = m.Artist.Name,
-                            Language = m.Language.Name,
+                            Series = m.Series != null ? m.Series.Name : "",
+                            Collection = m.Collection != null ? m.Collection.Name : "",
+                            Artist = m.Artist != null ? m.Artist.Name : "",
+                            Language = m.Language != null ? m.Language.Name : "",
                             PageCount = m.PageCount,
                             Path = m.Path,
                             Date = m.Date
@@ -52,10 +52,10 @@ namespace MangaReader.Controllers.API
             {
                 Id = m.Id,
                 Name = m.Name,
-                Series = m.Series.Name,
-                Collection = m.Collection.Name,
-                Artist = m.Artist.Name,
-                Language = m.Language.Name,
+                Series = m.Series != null ? m.Series.Name : "",
+                Collection = m.Collection != null ? m.Collection.Name : "",
+                Artist = m.Artist != null ? m.Artist.Name : "",
+                Language = m.Language != null ? m.Language.Name : "",
                 PageCount = m.PageCount,
                 Path = m.Path,
                 Date = m.Date
@@ -80,10 +80,10 @@ namespace MangaReader.Controllers.API
                             {
                                 Id = m.Id,
                                 Name = m.Name,
-                                Series = m.Series.Name,
-                                Collection = m.Collection.Name,
-                                Artist = m.Artist.Name,
-                                Language = m.Language.Name,
+                                Series = m.Series != null? m.Series.Name : "",
+                                Collection = m.Collection != null? m.Collection.Name : "",
+                                Artist = m.Artist != null ? m.Artist.Name : "",
+                                Language = m.Language != null ? m.Language.Name : "",
                                 PageCount = m.PageCount,
                                 Path = m.Path,
                                 Date = m.Date

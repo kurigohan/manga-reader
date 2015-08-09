@@ -11,11 +11,15 @@
             scope: {
                 manga: '=',
                 control: '=',
-                pagePath: '='
+                pagePath: '=',
+                currentPage: '='
             },
             templateUrl: 'viewer/pageNavigation.html',
             link: function (scope) {
-                scope.currentPage = 1;
+                if (!scope.currentPage) {
+                    scope.currentPage = 1;
+                }
+
                 scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
 
                 scope.nav = scope.control || {};
@@ -24,6 +28,7 @@
                     if (scope.currentPage < scope.manga.pageCount) {
                         scope.currentPage += 1;
                         scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                        window.scrollTo(0, 0);
                     }
                 };
                 
@@ -31,6 +36,7 @@
                     if (scope.currentPage > 1) {
                         scope.currentPage -= 1;
                         scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                        window.scrollTo(0, 0);
                     }
                 };
 
@@ -38,6 +44,7 @@
                     if (scope.currentPage > 1) {
                         scope.currentPage = 1;
                         scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                        window.scrollTo(0, 0);
                     }
                 };
 
@@ -45,6 +52,7 @@
                     if (scope.currentPage < scope.manga.pageCount) {
                         scope.currentPage = scope.manga.pageCount;
                         scope.pagePath = MangaService.getPagePath(scope.manga.path, scope.currentPage);
+                        window.scrollTo(0, 0);
                     }
                 }
 
