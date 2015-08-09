@@ -46,7 +46,7 @@
                                 return $stateParams.manga;
                             }
                             return MangaService
-                                    .getMangaDetails($stateParams.mangaId);
+                                    .getManga($stateParams.mangaId);
                         }],
                     pageStart: ['$stateParams', function ($stateParams) {
                         return $stateParams.pageStart || 1;
@@ -62,7 +62,7 @@
                     manga: ['$stateParams', 'MangaService',
                         function ($stateParams, MangaService) {
                             return MangaService
-                                    .getMangaDetails($stateParams.mangaId);
+                                    .getManga($stateParams.mangaId);
                         }]
                 }
             });

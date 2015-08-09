@@ -2,16 +2,16 @@
     'use strict';
     angular
         .module('mangaReader')
-        .directive('mangaList', MangaList);
+        .directive('mangaGallery', MangaGallery);
 
-    MangaList.$inject = [];
-    function MangaList() {
+    MangaGallery.$inject = [];
+    function MangaGallery() {
         return {
             restrict: 'E',
             scope: {
                 data: '='
             },
-            templateUrl: 'home/mangaList.html'
+            templateUrl: 'home/mangaGallery.html'
         }
     };
 

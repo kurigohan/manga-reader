@@ -221,8 +221,8 @@
     <Content Include="Scripts\app\details\mangaDetailsController.js" />
     <Content Include="Scripts\app\home\home.html" />
     <Content Include="Scripts\app\home\homeController.js" />
-    <Content Include="Scripts\app\home\mangaList.html" />
-    <Content Include="Scripts\app\home\mangaListDirective.js" />
+    <Content Include="Scripts\app\home\mangaGallery.html" />
+    <Content Include="Scripts\app\home\mangaGalleryDirective.js" />
     <Content Include="Scripts\app\shared\appSettings.js" />
     <Content Include="Scripts\app\shared\mangaModel.js" />
     <Content Include="Scripts\app\shared\mangaService.js" />

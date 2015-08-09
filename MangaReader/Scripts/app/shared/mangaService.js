@@ -7,14 +7,21 @@
     MangaService.$inject = ['$http', 'Manga'];
     function MangaService($http, Manga) {
         return {
+            getManga: getManga,
             getMangaList: getMangaList,
             getMangaListPage: getMangaListPage,
-            getMangaDetails: getMangaDetails,
             getPagePath: getPagePath
         };
 
         function success(response) {
             return response.data;
+        }
+
+        function getManga(mangaId) {
+            return $http
+                    .get('/api/manga/' + mangaId)
+                    .then(success)
+                    .then(Manga.fromJson);
         }
 
         function getMangaList() {
@@ -32,13 +39,6 @@
                         data.mangaList = Manga.fromJson(data.mangaList);
                         return data;
                     });
-        }
-
-        function getMangaDetails(mangaId) {
-            return $http
-                    .get('/api/manga/' + mangaId)
-                    .then(success)
-                    .then(Manga.fromJson);
         }
 
         function getPagePath(mangaPath, pageNum) {
