@@ -68,33 +68,66 @@ namespace MangaReader.Controllers.API
 
             return Ok(manga);
         }
-
-        // GET: api/manga/page/pageSize/pageNumber/orderBy(optional)
-        [Route("page/{pageSize:int}/{pageNumber:int}")]
-        public IHttpActionResult GetPage(int pageSize, int pageNumber)
+        // GET: api/manga?pageSize&pageNumber
+        [Route("")]
+        public IHttpActionResult GetPageQuery(
+            int pageSize,
+            int pageNumber, 
+            int? artistId=null,
+            int? seriesId=null,
+            int? collectionId=null,
+            int? languageId=null )
         {
-            var totalCount = db.Manga.Count();
-            var totalPages = Math.Ceiling((double)totalCount / pageSize);
 
-            var mangaList = db.Manga
-                            .OrderByDescending(m => m.Date)
-                            .Skip((pageNumber - 1) * pageSize)
-                            .Take(pageSize)
-                            .Select(m => new MangaDTO
-                            {
-                                Id = m.Id,
-                                Name = m.Name,
-                                Series = m.Series != null? m.Series.Name : "",
-                                Collection = m.Collection != null? m.Collection.Name : "",
-                                Artist = m.Artist != null ? m.Artist.Name : "",
-                                Language = m.Language != null ? m.Language.Name : "",
-                                PageCount = m.PageCount,
-                                Path = m.Path,
-                                Date = m.Date
-                            })
+
+            var mangaList = db.Manga.ToList();
+
+            if (artistId != null)
+            {
+                mangaList = mangaList
+                            .Where(m => m.ArtistId == artistId)
                             .ToList();
+            }
 
-            foreach (var manga in mangaList)
+            if (seriesId != null)
+            {
+                mangaList = mangaList
+                            .Where(m => m.SeriesId == seriesId)
+                            .ToList();
+            }
+
+            if(collectionId != null){
+                mangaList = mangaList
+                            .Where(m => m.CollectionId == collectionId)
+                            .ToList();
+            }
+
+            if (languageId != null)
+            {
+                mangaList = mangaList
+                             .Where(m => m.LanguageId == languageId)
+                             .ToList();
+            }
+
+            var mangaDTOList = mangaList
+                                .OrderByDescending(m => m.Date)
+                                .Skip((pageNumber - 1) * pageSize)
+                                .Take(pageSize)
+                                .Select(m => new MangaDTO
+                                {
+                                    Id = m.Id,
+                                    Name = m.Name,
+                                    Series = m.Series != null ? m.Series.Name : "",
+                                    Collection = m.Collection != null ? m.Collection.Name : "",
+                                    Artist = m.Artist != null ? m.Artist.Name : "",
+                                    Language = m.Language != null ? m.Language.Name : "",
+                                    PageCount = m.PageCount,
+                                    Path = m.Path,
+                                    Date = m.Date
+                                })
+                                .ToList();
+
+            foreach (var manga in mangaDTOList)
             {
                 manga.Tags = db.Tags
                              .Where(t => t.MangaId == manga.Id)
@@ -102,14 +135,18 @@ namespace MangaReader.Controllers.API
                              .ToList();
             }
 
+            var totalCount = mangaList.Count();
+            var totalPages = Math.Ceiling((double)totalCount / pageSize);
+
             var result = new
             {
                 TotalCount = totalCount,
                 TotalPages = totalPages,
-                MangaList = mangaList
-            }; 
+                MangaList = mangaDTOList
+            };
             return Ok(result);
         }
+
 
         /*
         // PUT: api/Manga/5

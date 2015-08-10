@@ -8,8 +8,8 @@
     function MangaService($http, Manga) {
         return {
             getManga: getManga,
+            getAllManga: getAllManga,
             getMangaList: getMangaList,
-            getMangaListPage: getMangaListPage,
             getPagePath: getPagePath
         };
 
@@ -24,16 +24,34 @@
                     .then(Manga.fromJson);
         }
 
-        function getMangaList() {
+        function getAllManga() {
             return $http
                     .get('/api/manga')
                     .then(success)
                     .then(Manga.fromJson);
         }
 
-        function getMangaListPage(pageSize, pageNum) {
+        function getMangaList(pageSize, pageNum, artistId, seriesId, collectionId, languageId) {
+            var query = '?pageSize=' + pageSize + '&pageNumber=' + pageNum;
+
+            if (artistId) {
+                query += '&artistId=' + artistId;
+            }
+
+            if (seriesId) {
+                query += '&seriesId=' + seriesId;
+            }
+
+            if (collectionId) {
+                query += '&collectionId=' + collectionId;
+            }
+
+            if (languageId) {
+                query += '&languageId=' + languageId;
+            }
+
             return $http
-                    .get('/api/manga/page/' + pageSize + '/' + pageNum)
+                    .get('/api/manga' + query)
                     .then(success)
                     .then(function (data) {
                         data.mangaList = Manga.fromJson(data.mangaList);

@@ -11,7 +11,7 @@
             scope: {
                 data: '='
             },
-            templateUrl: 'home/mangaGallery.html'
+            templateUrl: 'shared/mangaGallery.html'
         }
     };
 

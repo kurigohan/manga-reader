@@ -25,10 +25,10 @@
                 controller: 'HomeController',
                 controllerAs: 'Home',
                 resolve: {
-                    mangaListPage: ['MangaService', 'AppSettings',
+                    mangaList: ['MangaService', 'AppSettings',
                         function (MangaService, AppSettings) {
                             return MangaService
-                                    .getMangaListPage(AppSettings.itemsPerPage, 1);
+                                    .getMangaList(AppSettings.itemsPerPage, 1);
                     }]
                 }
             })
@@ -63,6 +63,40 @@
                             return MangaService
                                     .getManga($stateParams.mangaId);
                         }]
+                }
+            })
+            .state('artists', {
+                url: '/artists',
+                templateUrl: 'artists/artists.html',
+                controller: 'ArtistsController',
+                controllerAs: 'Artists',
+                resolve: {
+                    artists: ['ArtistsService', function (ArtistsService) {
+                        return ArtistsService.getArtists();
+                    }]
+                }
+            })
+            .state('mangaByArtist', {
+                url: '/mangaByArtist/:artistId',
+                templateUrl: 'artists/mangaByArtist.html',
+                controller: 'MangaByArtistController',
+                controllerAs: 'MangaByArtist',
+                params: { artist: null },
+                resolve: {
+                    artist: ['$stateParams', 'ArtistsService',
+                        function ($stateParams, ArtistsService) {
+                            if ($stateParams.artist) {
+                                return $stateParams.artist;
+                            }
+                            return ArtistsService
+                                    .getArtist($stateParams.artistId);
+                    }],
+                    mangaList: ['$stateParams', 'MangaService', 'AppSettings', 
+                        function ($stateParams, MangaService, AppSettings) {
+                            var artistId = $stateParams.artistId || $stateParams.artist.Id;
+                            return MangaService
+                                    .getMangaList(AppSettings.itemsPerPage, 1, artistId);
+                    }]
                 }
             });
 

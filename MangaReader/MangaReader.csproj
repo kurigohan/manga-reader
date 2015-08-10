@@ -217,13 +217,18 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\artists\artists.html" />
+    <Content Include="Scripts\app\artists\artistsController.js" />
+    <Content Include="Scripts\app\artists\mangaByArtist.html" />
+    <Content Include="Scripts\app\artists\mangaByArtistController.js" />
     <Content Include="Scripts\app\details\mangaDetails.html" />
     <Content Include="Scripts\app\details\mangaDetailsController.js" />
     <Content Include="Scripts\app\home\home.html" />
     <Content Include="Scripts\app\home\homeController.js" />
-    <Content Include="Scripts\app\home\mangaGallery.html" />
-    <Content Include="Scripts\app\home\mangaGalleryDirective.js" />
+    <Content Include="Scripts\app\shared\mangaGallery.html" />
+    <Content Include="Scripts\app\shared\mangaGalleryDirective.js" />
     <Content Include="Scripts\app\shared\appSettings.js" />
+    <Content Include="Scripts\app\shared\artistsService.js" />
     <Content Include="Scripts\app\shared\mangaModel.js" />
     <Content Include="Scripts\app\shared\mangaService.js" />
     <Content Include="Scripts\app\viewer\mangaViewer.html" />
@@ -321,6 +326,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Scripts\app\search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

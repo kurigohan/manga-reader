@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="col-md-6 manga-details">
-        <h1 class="details-title">{{ ::Details.manga.name }}</h2>
+        <h1 class="details-title">{{ ::Details.manga.name }}</h1>
         <div class="row details-row">
             <div class="col-md-4">Artist</div>
             <div class="col-md-8">{{ ::Details.manga.artist }}</div>
@@ -26,7 +26,7 @@
             <div class="col-md-4">Tags</div>
             <div class="col-md-8">
                 <button class="btn btn-primary btn-sm manga-details-tag" ng-repeat="tag in Details.manga.tags">
-                    {{ tag }}
+                    {{ ::tag }}
                 </button>
             </div>
         </div>
@@ -34,7 +34,7 @@
 </div>
 <div class="row manga-preview text-center img-rounded">
     <a ng-repeat="page in Details.pages"
-       ui-sref="viewer({manga: Details.manga, mangaId: Details.mangaId, pageStart: $index + 1})">
+       ui-sref="viewer({manga: Details.manga, mangaId: Details.manga.id, pageStart: $index + 1})">
         <img class="page-preview" ng-src="{{ Details.getPagePreview(page) }}" />
     </a>
 </div>

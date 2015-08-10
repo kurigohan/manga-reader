@@ -11,6 +11,6 @@
         vm.manga = manga;
         vm.pagePath = '';
         vm.currentPage = parseInt(pageStart);
-        vm.outerControl = {}; // binds to navControl in pageNavigation directive
+        vm.navControl = {}; // binds to navControl in pageNavigation directive
     }
 })();

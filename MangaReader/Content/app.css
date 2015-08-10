@@ -42,6 +42,7 @@ img.manga-page{
     padding-bottom: .5em;
     width: 999px;
     height: 1444px;
+    cursor: pointer; 
 }
 
 div.manga-viewer{
