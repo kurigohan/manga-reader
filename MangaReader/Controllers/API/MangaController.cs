@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MangaReader.Models;
+using System.Reflection;
 
 namespace MangaReader.Controllers.API
 {
@@ -72,7 +73,9 @@ namespace MangaReader.Controllers.API
         [Route("")]
         public IHttpActionResult GetPageQuery(
             int pageSize,
-            int pageNumber, 
+            int pageNumber,
+            string order="",
+            string orderBy="",
             int? artistId=null,
             int? seriesId=null,
             int? collectionId=null,
@@ -109,8 +112,39 @@ namespace MangaReader.Controllers.API
                              .ToList();
             }
 
-            var mangaDTOList = mangaList
-                                .OrderByDescending(m => m.Date)
+            IEnumerable<Manga> orderedMangaList;
+
+            if (orderBy.Length > 0 && 
+                typeof(Manga)
+                .GetType()
+                .GetProperty(orderBy, 
+                    BindingFlags.IgnoreCase 
+                    | BindingFlags.Public 
+                    | BindingFlags.Instance) != null)
+            {
+                orderedMangaList = mangaList
+                                   .OrderByDescending(m => 
+                                       typeof(Manga)
+                                       .GetProperty(orderBy, 
+                                       BindingFlags.IgnoreCase 
+                                       | BindingFlags.Public 
+                                       | BindingFlags.Instance)
+                                       .GetValue(m, null));
+            }
+            else
+            {
+                orderedMangaList = mangaList
+                                    .OrderByDescending(m => m.Date);
+            }
+
+            if (order.Length > 0 && 
+                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) || 
+                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
+            {
+                orderedMangaList = orderedMangaList.Reverse();
+            }
+
+            var mangaDTOList = orderedMangaList
                                 .Skip((pageNumber - 1) * pageSize)
                                 .Take(pageSize)
                                 .Select(m => new MangaDTO
@@ -134,6 +168,8 @@ namespace MangaReader.Controllers.API
                              .Select(t => t.Name)
                              .ToList();
             }
+
+
 
             var totalCount = mangaList.Count();
             var totalPages = Math.Ceiling((double)totalCount / pageSize);

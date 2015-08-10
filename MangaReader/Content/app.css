@@ -1,9 +1,12 @@
 ﻿div.app-view{
-    margin-top: 1em;
+    
+}
+
+div.app-nav{
+    margin: 0;
 }
 
 /* misc */
-
 .no-padding{
     padding: 0;
 }
@@ -87,4 +90,10 @@ button.manga-details-tag{
 
 h1.details-title{
     margin-bottom: .5em;
+}
+
+/* artists */
+ul.artist-list{
+    list-style: none;
+    padding-left: 1em;
 }

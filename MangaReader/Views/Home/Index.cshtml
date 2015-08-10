@@ -3,7 +3,15 @@
     <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css" />
 }
 
-<div ng-app="mangaReader" class="container app-view" ui-view autoscroll="true"></div>
+<div ng-app="mangaReader" class="container app-view">
+    <div class="navbar app-nav">
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="home()">Home</a></li>
+            <li><a ui-sref="artists()">Artists</a></li>
+        </ul>
+    </div>
+    <ui-view autoscroll="true"></ui-view>
+</div>
 
 
 @section scripts {
