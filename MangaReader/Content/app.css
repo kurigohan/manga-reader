@@ -2,6 +2,12 @@
     margin-top: 1em;
 }
 
+/* misc */
+
+.no-padding{
+    padding: 0;
+}
+
 /* home */
 div.manga{
     padding: 1em 0 1em 0;
@@ -19,6 +25,17 @@ img.manga-thumbnail{
     height:202px;
 }
 
+button.manga-tag{
+    margin-top: .5em;
+    margin-right: .5em;
+    padding: 0 .5em;
+}
+
+.manga-title{
+    margin-top: 0;
+    margin-bottom: .5em;
+}
+
 /* viewer */
 img.manga-page{
     padding-top: .5em;
@@ -34,6 +51,16 @@ div.manga-viewer{
 }
 
 /* details */
+div.manga-details{
+    font-size: 1.1em;
+    padding: 1em;
+    background-color: whitesmoke;
+}
+
+div.details-row{
+    margin-top: .5em;
+}
+
 img.manga-cover{
     width: 350px;
     height: 512px;
@@ -50,3 +77,13 @@ img.page-preview{
     padding: 1em;
 }
 
+button.manga-details-tag{
+    margin-top: .5em;
+    margin-right: .5em;
+    padding: 0 .5em;
+    font-size: 1em;
+}
+
+h1.details-title{
+    margin-bottom: .5em;
+}

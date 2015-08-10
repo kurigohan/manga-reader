@@ -44,7 +44,6 @@
         function getPagePath(mangaPath, pageNum) {
             return mangaPath + '/' + pageNum + '.jpg';
         }
-
     }
 
 })();

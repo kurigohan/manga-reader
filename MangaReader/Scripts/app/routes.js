@@ -41,7 +41,6 @@
                 resolve: {
                     manga: ['$stateParams', 'MangaService',
                         function ($stateParams, MangaService) {
-                            console.log($stateParams.mangaId);
                             if ($stateParams.manga) {
                                 return $stateParams.manga;
                             }

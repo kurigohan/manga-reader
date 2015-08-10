@@ -61,6 +61,11 @@ namespace MangaReader.Controllers.API
                 Date = m.Date
             };
 
+            manga.Tags = db.Tags
+                         .Where(t => t.MangaId == manga.Id)
+                         .Select(t => t.Name)
+                         .ToList();
+
             return Ok(manga);
         }
 
@@ -71,9 +76,8 @@ namespace MangaReader.Controllers.API
             var totalCount = db.Manga.Count();
             var totalPages = Math.Ceiling((double)totalCount / pageSize);
 
-            var mangaQuery = db.Manga.ToList();
-
-            var mangaList = mangaQuery
+            var mangaList = db.Manga
+                            .OrderByDescending(m => m.Date)
                             .Skip((pageNumber - 1) * pageSize)
                             .Take(pageSize)
                             .Select(m => new MangaDTO
@@ -87,8 +91,17 @@ namespace MangaReader.Controllers.API
                                 PageCount = m.PageCount,
                                 Path = m.Path,
                                 Date = m.Date
-                            });
-                              
+                            })
+                            .ToList();
+
+            foreach (var manga in mangaList)
+            {
+                manga.Tags = db.Tags
+                             .Where(t => t.MangaId == manga.Id)
+                             .Select(t => t.Name)
+                             .ToList();
+            }
+
             var result = new
             {
                 TotalCount = totalCount,

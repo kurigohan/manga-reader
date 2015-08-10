@@ -10,7 +10,7 @@
         vm.manga = manga;
         vm.mangaCover = MangaService.getPagePath(manga.path, 1);
         vm.pages = [];
-
+        
         for (var i = 1; i < manga.pageCount; i++) {
             vm.pages.push(MangaService.getPagePath(manga.path, i));
         }

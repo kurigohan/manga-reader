@@ -12,7 +12,6 @@
         vm.itemsPerPage = AppSettings.itemsPerPage;
 
         vm.pageChanged = function () {
-            console.log('pageChanged');
             MangaService
                 .getMangaListPage(vm.itemsPerPage, vm.currentPage)
                 .then(function (page) {
