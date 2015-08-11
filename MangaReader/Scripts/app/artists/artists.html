@@ -1,5 +1,13 @@
-﻿<div class="col-md-4" ng-repeat="(letter, artistList) in Artists.artistsByLetter">
-    <h4>{{ letter }}</h4>
+﻿<ul class="letter-nav">
+    <li ng-repeat="(letter, artist) in Artists.artistsByLetter"
+        ng-click="Artists.goToLetter(letter)">
+        {{ ::letter }}
+    </li>
+</ul>
+<div class="col-md-4" 
+     ng-repeat="(letter, artistList) in Artists.artistsByLetter" 
+     id="{{ ::letter }}">
+    <h4>{{ ::letter }}</h4>
     <ul class="artist-list">
         <li ng-repeat="artist in artistList">
             <a ui-sref="mangaByArtist({artist: artist, artistId: artist.id })">{{ ::artist.name }}</a>

@@ -18,25 +18,134 @@ namespace MangaReader.Controllers.API
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/manga
+        // GET: api/manga?pageSize&pageNumber&order&orderBy&artistId&seriesId&collectionId&languageId
         [Route("")]
-        public IQueryable<MangaDTO> GetManga()
+        public IHttpActionResult GetPageQuery(
+            int pageSize = 0,
+            int pageNumber = 0,
+            string order = "",
+            string orderBy = "",
+            int? artistId = null,
+            int? seriesId = null,
+            int? collectionId = null,
+            int? languageId = null)
         {
-          //  return db.Manga;
-            var manga = from m in db.Manga
-                        select new MangaDTO()
-                        {
-                            Id = m.Id,
-                            Name = m.Name,
-                            Series = m.Series != null ? m.Series.Name : "",
-                            Collection = m.Collection != null ? m.Collection.Name : "",
-                            Artist = m.Artist != null ? m.Artist.Name : "",
-                            Language = m.Language != null ? m.Language.Name : "",
-                            PageCount = m.PageCount,
-                            Path = m.Path,
-                            Date = m.Date
-                        };
-            return manga;
+
+            var mangaList = db.Manga.ToList();
+
+            /* Filter the manga list */
+            if (artistId != null)
+            {
+                mangaList = mangaList
+                            .Where(m => m.ArtistId == artistId)
+                            .ToList();
+            }
+
+            if (seriesId != null)
+            {
+                mangaList = mangaList
+                            .Where(m => m.SeriesId == seriesId)
+                            .ToList();
+            }
+
+            if (collectionId != null)
+            {
+                mangaList = mangaList
+                            .Where(m => m.CollectionId == collectionId)
+                            .ToList();
+            }
+
+            if (languageId != null)
+            {
+                mangaList = mangaList
+                             .Where(m => m.LanguageId == languageId)
+                             .ToList();
+            }
+
+
+            /* Sort the manga list */
+            IEnumerable<Manga> orderedMangaList;
+
+            if (orderBy.Length > 0 &&
+                typeof(Manga)
+                .GetType()
+                .GetProperty(orderBy,
+                    BindingFlags.IgnoreCase
+                    | BindingFlags.Public
+                    | BindingFlags.Instance) != null)
+            {
+                orderedMangaList = mangaList
+                                   .OrderByDescending(m =>
+                                       typeof(Manga)
+                                       .GetProperty(orderBy,
+                                       BindingFlags.IgnoreCase
+                                       | BindingFlags.Public
+                                       | BindingFlags.Instance)
+                                       .GetValue(m, null));
+            }
+            else
+            {
+                orderedMangaList = mangaList
+                                    .OrderByDescending(m => m.Date);
+            }
+
+            if (order.Length > 0 &&
+                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
+                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
+            {
+                orderedMangaList = orderedMangaList.Reverse();
+            }
+
+            /* Paginate the manga list */
+            if (pageSize > 0 && pageNumber > 0)
+            {
+
+                orderedMangaList = orderedMangaList
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize);
+            }
+
+            /* Convert to MangaDTO list */
+            var mangaDTOList = orderedMangaList
+                                .Select(m => new MangaDTO
+                                {
+                                    Id = m.Id,
+                                    Name = m.Name,
+                                    Series = m.Series != null ? m.Series.Name : "",
+                                    Collection = m.Collection != null ? m.Collection.Name : "",
+                                    Artist = m.Artist != null ? m.Artist.Name : "",
+                                    Language = m.Language != null ? m.Language.Name : "",
+                                    PageCount = m.PageCount,
+                                    Path = m.Path,
+                                    Date = m.Date
+                                })
+                                .ToList();
+
+            /* Get manga tags */
+
+            foreach (var manga in mangaDTOList)
+            {
+                manga.Tags = db.Tags
+                             .Where(t => t.MangaId == manga.Id)
+                             .Select(t => t.Name)
+                             .ToList();
+            }
+
+            /* Get pagination info */
+
+            var totalCount = mangaList.Count();
+            var totalPages = pageSize > 0 && pageNumber > 0 ? (int)Math.Ceiling((double)totalCount / pageSize) : 1;
+
+            /* Return results */
+
+            var result = new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                MangaList = mangaDTOList
+            };
+
+            return Ok(result);
         }
 
         // GET: api/manga/5
@@ -69,119 +178,7 @@ namespace MangaReader.Controllers.API
 
             return Ok(manga);
         }
-        // GET: api/manga?pageSize&pageNumber
-        [Route("")]
-        public IHttpActionResult GetPageQuery(
-            int pageSize,
-            int pageNumber,
-            string order="",
-            string orderBy="",
-            int? artistId=null,
-            int? seriesId=null,
-            int? collectionId=null,
-            int? languageId=null )
-        {
 
-
-            var mangaList = db.Manga.ToList();
-
-            if (artistId != null)
-            {
-                mangaList = mangaList
-                            .Where(m => m.ArtistId == artistId)
-                            .ToList();
-            }
-
-            if (seriesId != null)
-            {
-                mangaList = mangaList
-                            .Where(m => m.SeriesId == seriesId)
-                            .ToList();
-            }
-
-            if(collectionId != null){
-                mangaList = mangaList
-                            .Where(m => m.CollectionId == collectionId)
-                            .ToList();
-            }
-
-            if (languageId != null)
-            {
-                mangaList = mangaList
-                             .Where(m => m.LanguageId == languageId)
-                             .ToList();
-            }
-
-            IEnumerable<Manga> orderedMangaList;
-
-            if (orderBy.Length > 0 && 
-                typeof(Manga)
-                .GetType()
-                .GetProperty(orderBy, 
-                    BindingFlags.IgnoreCase 
-                    | BindingFlags.Public 
-                    | BindingFlags.Instance) != null)
-            {
-                orderedMangaList = mangaList
-                                   .OrderByDescending(m => 
-                                       typeof(Manga)
-                                       .GetProperty(orderBy, 
-                                       BindingFlags.IgnoreCase 
-                                       | BindingFlags.Public 
-                                       | BindingFlags.Instance)
-                                       .GetValue(m, null));
-            }
-            else
-            {
-                orderedMangaList = mangaList
-                                    .OrderByDescending(m => m.Date);
-            }
-
-            if (order.Length > 0 && 
-                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) || 
-                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
-            {
-                orderedMangaList = orderedMangaList.Reverse();
-            }
-
-            var mangaDTOList = orderedMangaList
-                                .Skip((pageNumber - 1) * pageSize)
-                                .Take(pageSize)
-                                .Select(m => new MangaDTO
-                                {
-                                    Id = m.Id,
-                                    Name = m.Name,
-                                    Series = m.Series != null ? m.Series.Name : "",
-                                    Collection = m.Collection != null ? m.Collection.Name : "",
-                                    Artist = m.Artist != null ? m.Artist.Name : "",
-                                    Language = m.Language != null ? m.Language.Name : "",
-                                    PageCount = m.PageCount,
-                                    Path = m.Path,
-                                    Date = m.Date
-                                })
-                                .ToList();
-
-            foreach (var manga in mangaDTOList)
-            {
-                manga.Tags = db.Tags
-                             .Where(t => t.MangaId == manga.Id)
-                             .Select(t => t.Name)
-                             .ToList();
-            }
-
-
-
-            var totalCount = mangaList.Count();
-            var totalPages = Math.Ceiling((double)totalCount / pageSize);
-
-            var result = new
-            {
-                TotalCount = totalCount,
-                TotalPages = totalPages,
-                MangaList = mangaDTOList
-            };
-            return Ok(result);
-        }
 
 
         /*

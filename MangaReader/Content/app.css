@@ -97,3 +97,13 @@ ul.artist-list{
     list-style: none;
     padding-left: 1em;
 }
+
+ul.letter-nav{
+    list-style: none;
+   padding-left: 1em;
+}
+
+ul.letter-nav li{
+     display: inline;
+     padding-right: 1em;
+}

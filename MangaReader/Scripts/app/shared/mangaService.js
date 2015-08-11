@@ -31,23 +31,34 @@
                     .then(Manga.fromJson);
         }
 
-        function getMangaList(pageSize, pageNum, artistId, seriesId, collectionId, languageId) {
-            var query = '?pageSize=' + pageSize + '&pageNumber=' + pageNum;
+        function getMangaList(params) {
+            var query =  '?';
 
-            if (artistId) {
-                query += '&artistId=' + artistId;
-            }
+            if (params) {
+                var queryParams = '';
 
-            if (seriesId) {
-                query += '&seriesId=' + seriesId;
-            }
+                if (params.pageSize && params.pageNum) {
+                    queryParams += '&pageSize=' + params.pageSize;
+                }
+                if (params.pageNum) {
+                    queryParams += '&pageNumber=' + params.pageNum;
+                }
+                if (params.artistId) {
+                    queryParams += '&artistId=' + params.artistId;
+                }
 
-            if (collectionId) {
-                query += '&collectionId=' + collectionId;
-            }
+                if (params.seriesId) {
+                    queryParams += '&seriesId=' + params.seriesId;
+                }
 
-            if (languageId) {
-                query += '&languageId=' + languageId;
+                if (params.collectionId) {
+                    queryParams += '&collectionId=' + params.collectionId;
+                }
+
+                if (params.languageId) {
+                    queryParams += '&languageId=' + params.languageId;
+                }
+                query += queryParams.substring(1);
             }
 
             return $http

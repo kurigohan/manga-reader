@@ -11,7 +11,6 @@
         vm.currentPage = 1;
         vm.mangaList = mangaList;
         vm.itemsPerPage = AppSettings.itemsPerPage;
-
         vm.pageChanged = function () {
             MangaService
                 .getMangaList(vm.itemsPerPage, vm.currentPage, artist.id)

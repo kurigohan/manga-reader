@@ -9,20 +9,57 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MangaReader.Models;
+using System.Reflection;
 
 namespace MangaReader.Controllers.API
 {
+
+    [RoutePrefix("api/artists")]
     public class ArtistsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Artists
-        public IQueryable<Artist> GetArtists()
+        [Route("")]
+        public IHttpActionResult GetArtists(string order = "", string orderBy = "")
         {
-            return db.Artists;
+            IEnumerable<Artist> orderedArtistList;
+
+            if (orderBy.Length > 0 &&
+                typeof(Artist)
+                .GetType()
+                .GetProperty(orderBy,
+                    BindingFlags.IgnoreCase
+                    | BindingFlags.Public
+                    | BindingFlags.Instance) != null)
+            {
+                orderedArtistList = db.Artists
+                                   .OrderByDescending(m =>
+                                       typeof(Manga)
+                                       .GetProperty(orderBy,
+                                       BindingFlags.IgnoreCase
+                                       | BindingFlags.Public
+                                       | BindingFlags.Instance)
+                                       .GetValue(m, null));
+            }
+            else
+            {
+                orderedArtistList = db.Artists
+                                    .OrderByDescending(a => a.Id);
+            }
+
+            if (order.Length > 0 &&
+                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
+                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
+            {
+                orderedArtistList = orderedArtistList.Reverse();
+            }
+
+            return Ok(orderedArtistList);
         }
 
         // GET: api/Artists/5
+        [Route("{id:int}")]
         [ResponseType(typeof(Artist))]
         public IHttpActionResult GetArtist(int id)
         {

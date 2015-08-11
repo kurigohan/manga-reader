@@ -27,8 +27,12 @@
                 resolve: {
                     mangaList: ['MangaService', 'AppSettings',
                         function (MangaService, AppSettings) {
+                            var params = {
+                                pageSize: AppSettings.itemsPerPage,
+                                pageNumber: 1
+                            };
                             return MangaService
-                                    .getMangaList(AppSettings.itemsPerPage, 1);
+                                    .getMangaList(params);
                     }]
                 }
             })
@@ -94,8 +98,13 @@
                     mangaList: ['$stateParams', 'MangaService', 'AppSettings', 
                         function ($stateParams, MangaService, AppSettings) {
                             var artistId = $stateParams.artistId || $stateParams.artist.Id;
+                            var params = {
+                                pageSize: AppSettings.itemsPerPage,
+                                pageNumber: 1,
+                                artistId: artistId
+                            };
                             return MangaService
-                                    .getMangaList(AppSettings.itemsPerPage, 1, artistId);
+                                    .getMangaList(params);
                     }]
                 }
             });
