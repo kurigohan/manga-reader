@@ -93,7 +93,7 @@ h1.details-title{
 }
 
 /* artists */
-ul.artist-list{
+ul.category-results{
     list-style: none;
     padding-left: 1em;
 }
@@ -106,4 +106,8 @@ ul.letter-nav{
 ul.letter-nav li{
      display: inline;
      padding-right: 1em;
+}
+
+ul.letter-nav li a{
+    cursor: pointer; 
 }

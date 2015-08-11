@@ -13,82 +13,79 @@ using System.Reflection;
 
 namespace MangaReader.Controllers.API
 {
-
-    [RoutePrefix("api/artists")]
-    public class ArtistsController : ApiController
+    [RoutePrefix("api/series")]
+    public class SeriesController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Artists
+        // GET: api/series?orderBy&order
         [Route("")]
-        public IHttpActionResult GetArtists(string order = "", string orderBy = "")
+        public IHttpActionResult GetSeries(string order = "", string orderBy = "")
         {
-            var artistList = db.Artists.ToList();
-
-            IEnumerable<Artist> orderedArtistList;
+            var seriesList = db.Series.ToList();
+            IEnumerable<Series> orderedSeriesList;
 
             if (orderBy.Length > 0 &&
-                typeof(Artist)
+                typeof(Series)
                 .GetType()
                 .GetProperty(orderBy,
                     BindingFlags.IgnoreCase
                     | BindingFlags.Public
                     | BindingFlags.Instance) != null)
             {
-                orderedArtistList = artistList
-                                   .OrderByDescending(a =>
-                                       typeof(Artist)
+                orderedSeriesList = seriesList
+                                   .OrderByDescending(s =>
+                                       typeof(Series)
                                        .GetProperty(orderBy,
                                        BindingFlags.IgnoreCase
                                        | BindingFlags.Public
                                        | BindingFlags.Instance)
-                                       .GetValue(a, null));
+                                       .GetValue(s, null));
             }
             else
             {
-                orderedArtistList = artistList
+                orderedSeriesList = seriesList
                                     .OrderByDescending(a => a.Id);
             }
 
-             if (order.Length > 0 &&
+            if (order.Length > 0 &&
                 order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
                 order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
             {
-                orderedArtistList = orderedArtistList.Reverse();
+                orderedSeriesList = orderedSeriesList.Reverse();
             }
 
-            return Ok(orderedArtistList);
+            return Ok(orderedSeriesList);
         }
 
-        // GET: api/Artists/5
-        [Route("{id:int}")]
-        [ResponseType(typeof(Artist))]
-        public IHttpActionResult GetArtist(int id)
+        // GET: api/Series/5
+        [ResponseType(typeof(Series))]
+        public IHttpActionResult GetSeries(int id)
         {
-            Artist artist = db.Artists.Find(id);
-            if (artist == null)
+            Series series = db.Series.Find(id);
+            if (series == null)
             {
                 return NotFound();
             }
 
-            return Ok(artist);
+            return Ok(series);
         }
 
-        // PUT: api/Artists/5
+        // PUT: api/Series/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutArtist(int id, Artist artist)
+        public IHttpActionResult PutSeries(int id, Series series)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != artist.Id)
+            if (id != series.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(artist).State = EntityState.Modified;
+            db.Entry(series).State = EntityState.Modified;
 
             try
             {
@@ -96,7 +93,7 @@ namespace MangaReader.Controllers.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArtistExists(id))
+                if (!SeriesExists(id))
                 {
                     return NotFound();
                 }
@@ -109,35 +106,35 @@ namespace MangaReader.Controllers.API
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Artists
-        [ResponseType(typeof(Artist))]
-        public IHttpActionResult PostArtist(Artist artist)
+        // POST: api/Series
+        [ResponseType(typeof(Series))]
+        public IHttpActionResult PostSeries(Series series)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Artists.Add(artist);
+            db.Series.Add(series);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = artist.Id }, artist);
+            return CreatedAtRoute("DefaultApi", new { id = series.Id }, series);
         }
 
-        // DELETE: api/Artists/5
-        [ResponseType(typeof(Artist))]
-        public IHttpActionResult DeleteArtist(int id)
+        // DELETE: api/Series/5
+        [ResponseType(typeof(Series))]
+        public IHttpActionResult DeleteSeries(int id)
         {
-            Artist artist = db.Artists.Find(id);
-            if (artist == null)
+            Series series = db.Series.Find(id);
+            if (series == null)
             {
                 return NotFound();
             }
 
-            db.Artists.Remove(artist);
+            db.Series.Remove(series);
             db.SaveChanges();
 
-            return Ok(artist);
+            return Ok(series);
         }
 
         protected override void Dispose(bool disposing)
@@ -149,9 +146,9 @@ namespace MangaReader.Controllers.API
             base.Dispose(disposing);
         }
 
-        private bool ArtistExists(int id)
+        private bool SeriesExists(int id)
         {
-            return db.Artists.Count(e => e.Id == id) > 0;
+            return db.Series.Count(e => e.Id == id) > 0;
         }
     }
 }

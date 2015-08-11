@@ -1,0 +1,12 @@
+﻿<h1>{{ ::MangaBySeries.series.name }}</h1>
+<div class="row">
+    <manga-gallery data="MangaBySeries.mangaList.mangaList"></manga-gallery>
+</div>
+<div class="row text-center" ng-if="MangaBySeries.mangaList.totalPages > 1">
+    <pagination ng-model="MangaBySeries.currentPage"
+                total-items="MangaBySeries.mangaList.totalCount"
+                items-per-page="::MangaBySeries.itemsPerPage"
+                boundary-links="true"
+                ng-change="MangaBySeries.pageChanged()">
+    </pagination>
+</div>

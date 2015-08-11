@@ -2,20 +2,20 @@
     'use strict';
     angular
         .module('mangaReader')
-        .factory('ArtistsService', ArtistsService);
+        .factory('SeriesService', SeriesService);
 
-    ArtistsService.$inject = ['$http'];
-    function ArtistsService($http) {
+    SeriesService.$inject = ['$http'];
+    function SeriesService($http) {
         return {
-            getArtists: getArtists,
-            getArtist: getArtist
+            getSeries: getSeries,
+            getSeriesList: getSeriesList
         };
 
         function success(response) {
             return response.data;
         }
 
-        function getArtists(params) {
+        function getSeriesList(params) {
             var query = '';
             if (params) {
                 query = '?';
@@ -31,13 +31,13 @@
             }
 
             return $http
-                    .get('/api/artists' + query)
+                    .get('/api/series' + query)
                     .then(success);
         }
 
-        function getArtist(artistId) {
+        function getSeries(seriesId) {
             return $http
-                    .get('/api/artists/' + artistId)
+                    .get('/api/series/' + seriesId)
                     .then(success);
         }
     }

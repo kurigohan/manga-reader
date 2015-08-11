@@ -11,10 +11,9 @@
     function ArtistsController(
         $location,
         $anchorScroll,
-        artists)
-    {
+        artists) {
+
         var vm = this;
-        vm.artists = artists;
 
         // partition artists by first letter
         var artistsByLetter = {};

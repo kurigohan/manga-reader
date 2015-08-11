@@ -33,7 +33,7 @@
                             };
                             return MangaService
                                     .getMangaList(params);
-                    }]
+                        }]
                 }
             })
             .state('viewer', {
@@ -76,7 +76,7 @@
                 controllerAs: 'Artists',
                 resolve: {
                     artists: ['ArtistsService', function (ArtistsService) {
-                        return ArtistsService.getArtists();
+                        return ArtistsService.getArtists({orderBy: 'name', order: 'asc'});
                     }]
                 }
             })
@@ -94,10 +94,10 @@
                             }
                             return ArtistsService
                                     .getArtist($stateParams.artistId);
-                    }],
-                    mangaList: ['$stateParams', 'MangaService', 'AppSettings', 
+                        }],
+                    mangaList: ['$stateParams', 'MangaService', 'AppSettings',
                         function ($stateParams, MangaService, AppSettings) {
-                            var artistId = $stateParams.artistId || $stateParams.artist.Id;
+                            var artistId = $stateParams.artistId || $stateParams.artist.id;
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
                                 pageNumber: 1,
@@ -105,9 +105,50 @@
                             };
                             return MangaService
                                     .getMangaList(params);
+                        }]
+                }
+            })
+            .state('series', {
+                url: '/series',
+                templateUrl: 'series/series.html',
+                controller: 'SeriesController',
+                controllerAs: 'Series',
+                resolve: {
+                    seriesList: ['SeriesService', function (SeriesService) {
+                        return SeriesService.getSeriesList({ orderBy: 'name', order: 'asc' });
                     }]
                 }
+            })
+            .state('mangaBySeries', {
+                url: '/mangaBySeries/:seriesId',
+                templateUrl: 'series/mangaBySeries.html',
+                controller: 'MangaBySeriesController',
+                controllerAs: 'MangaBySeries',
+                params: { series: null },
+                resolve: {
+                    series: ['$stateParams', 'SeriesService',
+                        function ($stateParams, SeriesService) {
+                            if ($stateParams.series) {
+                                return $stateParams.series;
+                            }
+                            return SeriesService
+                                    .getSeries($stateParams.seriesId);
+                        }],
+                    mangaList: ['$stateParams', 'MangaService', 'AppSettings',
+                        function ($stateParams, MangaService, AppSettings) {
+                            var seriesId = $stateParams.seriesId || $stateParams.series.id;
+                            var params = {
+                                pageSize: AppSettings.itemsPerPage,
+                                pageNumber: 1,
+                                seriesId: seriesId
+                            };
+                            return MangaService
+                                    .getMangaList(params);
+                        }]
+                }
             });
+
+
 
     }
 })();

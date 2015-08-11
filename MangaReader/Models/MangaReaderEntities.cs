@@ -9,12 +9,9 @@ using System.Web;
 namespace MangaReader.Models
 {
 
-    public class Manga
+    public partial class Manga
     {
-
         public int Id { get; set; }
-
-        [DisplayName("Manga")]
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
@@ -37,38 +34,33 @@ namespace MangaReader.Models
         public string Path { get; set; }
     }
 
-    public class Series
+    public partial class Artist
     {
         public int Id { get; set; }
-        [DisplayName("Series")]
         public string Name { get; set; }
     }
 
-    public class Collection
+    public partial class Series
     {
         public int Id { get; set; }
-        [DisplayName("Collection")]
         public string Name { get; set; }
     }
 
-    public class Artist
+    public partial class Collection
     {
         public int Id { get; set; }
-        [DisplayName("Artist")]
         public string Name { get; set; }
     }
 
-    public class Language
+    public partial class Language
     {
         public int Id { get; set; }
-        [DisplayName("Language")]
         public string Name { get; set; }
     }
 
-    public class Tag
+    public partial class Tag
     {
         public int Id { get; set; }
-        [DisplayName("Tag")]
         public string Name { get; set; }
         public int MangaId { get; set; }
         public virtual Manga Manga { get; set; }

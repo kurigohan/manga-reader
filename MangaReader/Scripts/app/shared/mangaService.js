@@ -32,9 +32,10 @@
         }
 
         function getMangaList(params) {
-            var query =  '?';
+            var query = '';
 
             if (params) {
+                query = '?';
                 var queryParams = '';
 
                 if (params.pageSize && params.pageNum) {

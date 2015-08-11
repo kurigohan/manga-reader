@@ -20,7 +20,7 @@ namespace MangaReader.Controllers.API
 
         // GET: api/manga?pageSize&pageNumber&order&orderBy&artistId&seriesId&collectionId&languageId
         [Route("")]
-        public IHttpActionResult GetPageQuery(
+        public IHttpActionResult GetManga(
             int pageSize = 0,
             int pageNumber = 0,
             string order = "",

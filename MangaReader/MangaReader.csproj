@@ -186,6 +186,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\MangaController.cs" />
+    <Compile Include="Controllers\API\SeriesController.cs" />
     <Compile Include="Controllers\MVC\AccountController.cs" />
     <Compile Include="Controllers\API\ArtistsController.cs" />
     <Compile Include="Controllers\MVC\ArtistsController.cs" />
@@ -200,6 +201,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MangaReaderEntitiesMetaData.cs" />
     <Compile Include="Models\DataAccessModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -225,12 +227,17 @@
     <Content Include="Scripts\app\details\mangaDetailsController.js" />
     <Content Include="Scripts\app\home\home.html" />
     <Content Include="Scripts\app\home\homeController.js" />
+    <Content Include="Scripts\app\series\mangaBySeries.html" />
+    <Content Include="Scripts\app\series\mangaBySeriesController.js" />
+    <Content Include="Scripts\app\series\series.html" />
+    <Content Include="Scripts\app\series\seriesController.js" />
     <Content Include="Scripts\app\shared\mangaGallery.html" />
     <Content Include="Scripts\app\shared\mangaGalleryDirective.js" />
     <Content Include="Scripts\app\shared\appSettings.js" />
     <Content Include="Scripts\app\shared\artistsService.js" />
     <Content Include="Scripts\app\shared\mangaModel.js" />
     <Content Include="Scripts\app\shared\mangaService.js" />
+    <Content Include="Scripts\app\shared\seriesService.js" />
     <Content Include="Scripts\app\viewer\mangaViewer.html" />
     <Content Include="Scripts\app\viewer\mangaViewerController.js" />
     <Content Include="Scripts\app\viewer\pageNavigation.html" />

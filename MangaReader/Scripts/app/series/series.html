@@ -1,0 +1,15 @@
+﻿<ul class="letter-nav">
+    <li ng-repeat="(letter, series) in Series.seriesByLetter">
+        <a ng-click="Series.goToLetter(letter)">{{ ::letter }}</a>
+    </li>
+</ul>
+<div class="col-md-4"
+     ng-repeat="(letter, seriesList) in Series.seriesByLetter"
+     id="{{ ::letter }}">
+    <h4>{{ ::letter }}</h4>
+    <ul class="category-results">
+        <li ng-repeat="series in seriesList">
+            <a ui-sref="mangaBySeries({series: series, seriesId: series.id })">{{ ::series.name }}</a>
+        </li>
+    </ul>
+</div>
