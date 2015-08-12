@@ -76,7 +76,7 @@
                 controllerAs: 'Artists',
                 resolve: {
                     artists: ['ArtistsService', function (ArtistsService) {
-                        return ArtistsService.getArtists({orderBy: 'name', order: 'asc'});
+                        return ArtistsService.getArtists({ orderBy: 'name', order: 'asc' });
                     }]
                 }
             })
@@ -145,6 +145,17 @@
                             return MangaService
                                     .getMangaList(params);
                         }]
+                }
+            })
+            .state('tags', {
+                url: '/tags',
+                templateUrl: 'tags/tags.html',
+                controller: 'TagsController',
+                controllerAs: 'Tags',
+                resolve: {
+                    tags: ['TagsService', function (TagsService) {
+                        return TagsService.getTags({ order: 'asc' });
+                    }]
                 }
             });
 

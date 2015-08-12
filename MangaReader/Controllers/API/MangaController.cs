@@ -89,8 +89,7 @@ namespace MangaReader.Controllers.API
                                     .OrderByDescending(m => m.Date);
             }
 
-            if (order.Length > 0 &&
-                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
+            if (order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
                 order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
             {
                 orderedMangaList = orderedMangaList.Reverse();

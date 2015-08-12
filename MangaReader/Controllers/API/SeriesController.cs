@@ -20,7 +20,7 @@ namespace MangaReader.Controllers.API
 
         // GET: api/series?orderBy&order
         [Route("")]
-        public IHttpActionResult GetSeries(string order = "", string orderBy = "")
+        public IHttpActionResult GetSeriesList(string order = "", string orderBy = "")
         {
             var seriesList = db.Series.ToList();
             IEnumerable<Series> orderedSeriesList;
@@ -48,8 +48,7 @@ namespace MangaReader.Controllers.API
                                     .OrderByDescending(a => a.Id);
             }
 
-            if (order.Length > 0 &&
-                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
+            if (order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
                 order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
             {
                 orderedSeriesList = orderedSeriesList.Reverse();

@@ -187,6 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\API\MangaController.cs" />
     <Compile Include="Controllers\API\SeriesController.cs" />
+    <Compile Include="Controllers\API\TagsController.cs" />
     <Compile Include="Controllers\MVC\AccountController.cs" />
     <Compile Include="Controllers\API\ArtistsController.cs" />
     <Compile Include="Controllers\MVC\ArtistsController.cs" />
@@ -238,6 +239,11 @@
     <Content Include="Scripts\app\shared\mangaModel.js" />
     <Content Include="Scripts\app\shared\mangaService.js" />
     <Content Include="Scripts\app\shared\seriesService.js" />
+    <Content Include="Scripts\app\shared\tagsService.js" />
+    <Content Include="Scripts\app\tags\mangaByTag.html" />
+    <Content Include="Scripts\app\tags\mangaByTagController.js" />
+    <Content Include="Scripts\app\tags\tags.html" />
+    <Content Include="Scripts\app\tags\tagsController.js" />
     <Content Include="Scripts\app\viewer\mangaViewer.html" />
     <Content Include="Scripts\app\viewer\mangaViewerController.js" />
     <Content Include="Scripts\app\viewer\pageNavigation.html" />

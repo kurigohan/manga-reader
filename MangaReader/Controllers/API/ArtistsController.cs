@@ -50,8 +50,7 @@ namespace MangaReader.Controllers.API
                                     .OrderByDescending(a => a.Id);
             }
 
-             if (order.Length > 0 &&
-                order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
+             if (order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
                 order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
             {
                 orderedArtistList = orderedArtistList.Reverse();

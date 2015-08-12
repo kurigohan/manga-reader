@@ -20,4 +20,9 @@ namespace MangaReader.Models
         public DateTime Date { get; set; }
         public List<string> Tags { get; set; }
     }
+
+    public class TagDTO
+    {
+        public string Name { get; set; }
+    }
 }

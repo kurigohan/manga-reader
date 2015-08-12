@@ -8,6 +8,8 @@
         <ul class="nav navbar-nav">
             <li><a ui-sref="home()">Home</a></li>
             <li><a ui-sref="artists()">Artists</a></li>
+            <li><a ui-sref="series()">Series</a></li>
+            <li><a ui-sref="tags()">Tags</a></li>
         </ul>
     </div>
     <ui-view autoscroll="true"></ui-view>
@@ -24,6 +26,7 @@
     @Scripts.Render("~/Scripts/app/shared/mangaGalleryDirective.js")
     @Scripts.Render("~/Scripts/app/shared/artistsService.js")
     @Scripts.Render("~/Scripts/app/shared/seriesService.js")
+    @Scripts.Render("~/Scripts/app/shared/tagsService.js")
     @Scripts.Render("~/Scripts/app/home/homeController.js")
     @Scripts.Render("~/Scripts/app/viewer/mangaViewerController.js")
     @Scripts.Render("~/Scripts/app/viewer/pageNavigationDirective.js")
@@ -32,4 +35,6 @@
     @Scripts.Render("~/Scripts/app/artists/mangaByArtistController.js")
     @Scripts.Render("~/Scripts/app/series/seriesController.js")
     @Scripts.Render("~/Scripts/app/series/mangaBySeriesController.js")
+    @Scripts.Render("~/Scripts/app/tags/tagsController.js")
+
 }
