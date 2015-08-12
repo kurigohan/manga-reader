@@ -59,6 +59,13 @@
                 if (params.languageId) {
                     queryParams += '&languageId=' + params.languageId;
                 }
+
+                if (params.tags) {
+                    angular.foreach(tags, function (t) {
+                        queryParams += '&tags=' + t;
+                    });
+                }
+
                 query += queryParams.substring(1);
             }
 

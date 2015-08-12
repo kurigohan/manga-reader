@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MangaReader.Models;
 using System.Reflection;
+using MoreLinq;
 
 namespace MangaReader.Controllers.API
 {
@@ -28,7 +29,8 @@ namespace MangaReader.Controllers.API
             int? artistId = null,
             int? seriesId = null,
             int? collectionId = null,
-            int? languageId = null)
+            int? languageId = null,
+            [FromUri] string[] tags = null)
         {
 
             var mangaList = db.Manga.ToList();
@@ -120,20 +122,31 @@ namespace MangaReader.Controllers.API
                                 })
                                 .ToList();
 
+
             /* Get manga tags */
 
             foreach (var manga in mangaDTOList)
             {
+               
                 manga.Tags = db.Tags
                              .Where(t => t.MangaId == manga.Id)
                              .Select(t => t.Name)
                              .ToList();
             }
 
+            /* Filter based on tags */ 
+            if (tags != null && tags.Length > 0)
+            {
+                mangaDTOList = mangaDTOList
+                                .Where(m => m.Tags.Intersect(tags).Count() == tags.Count())
+                                .ToList();
+            }
+
             /* Get pagination info */
 
-            var totalCount = mangaList.Count();
-            var totalPages = pageSize > 0 && pageNumber > 0 ? (int)Math.Ceiling((double)totalCount / pageSize) : 1;
+            var totalCount = mangaDTOList.Count();
+            var totalPages = pageSize > 0 && pageNumber > 0 ? 
+                                (int) Math.Ceiling((double)totalCount / pageSize) : 1;
 
             /* Return results */
 
@@ -174,6 +187,7 @@ namespace MangaReader.Controllers.API
                          .Where(t => t.MangaId == manga.Id)
                          .Select(t => t.Name)
                          .ToList();
+
 
             return Ok(manga);
         }

@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MangaReader.Models;
 using System.Reflection;
+using MoreLinq;
 
 namespace MangaReader.Controllers.API
 {
@@ -23,22 +24,18 @@ namespace MangaReader.Controllers.API
         [Route("")]
         public IHttpActionResult GetTagNames(string order = "")
         {
-            var tagList = db.Tags.ToList();
-            IEnumerable<TagDTO> orderedTagList;
-
-            orderedTagList = tagList
-                                .GroupBy(t => t.Name)
-                                .Select(g => new TagDTO() { Name = g.First().Name })
-                                .OrderByDescending(t => t.Name);
-
+            IEnumerable<string> tagList = db.Tags
+                                            .DistinctBy(t => t.Name)
+                                            .Select(t => t.Name)
+                                            .OrderByDescending(t => t);
 
             if (order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
             {
-                orderedTagList = orderedTagList.Reverse();
+                tagList = tagList.Reverse();
             }
 
-            return Ok(orderedTagList);
+            return Ok(tagList);
         }
 
         protected override void Dispose(bool disposing)

@@ -19,7 +19,7 @@
         var tagsByLetter = {};
         var letter, firstLetter, tagList;
         angular.forEach(tags, function (t) {
-            firstLetter = t.name.charAt(0).toUpperCase();
+            firstLetter = t.charAt(0).toUpperCase();
             if (letter != firstLetter) {
                 letter = firstLetter;
                 tagsByLetter[letter] = [];
