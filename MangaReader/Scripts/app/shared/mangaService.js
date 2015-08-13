@@ -38,11 +38,11 @@
                 query = '?';
                 var queryParams = '';
 
-                if (params.pageSize && params.pageNum) {
+                if (params.pageSize) {
                     queryParams += '&pageSize=' + params.pageSize;
                 }
-                if (params.pageNum) {
-                    queryParams += '&pageNumber=' + params.pageNum;
+                if (params.pageNumber) {
+                    queryParams += '&pageNumber=' + params.pageNumber;
                 }
                 if (params.artistId) {
                     queryParams += '&artistId=' + params.artistId;
@@ -61,7 +61,7 @@
                 }
 
                 if (params.tags) {
-                    angular.foreach(tags, function (t) {
+                    angular.forEach(params.tags, function (t) {
                         queryParams += '&tags=' + t;
                     });
                 }

@@ -157,6 +157,29 @@
                         return TagsService.getTags({ order: 'asc' });
                     }]
                 }
+            })
+            .state('mangaByTag', {
+                url: '/mangaByTag/:tag',
+                templateUrl: 'tags/mangaByTag.html',
+                controller: 'MangaByTagController',
+                controllerAs: 'MangaByTag',
+                params: { tag: ''},
+                resolve: {
+                   tag: ['$stateParams',
+                        function ($stateParams) {
+                            return $stateParams.tag;
+                        }],
+                    mangaList: ['$stateParams', 'MangaService', 'AppSettings',
+                        function ($stateParams, MangaService, AppSettings) {
+                            var params = {
+                                pageSize: AppSettings.itemsPerPage,
+                                pageNumber: 1,
+                                tags: [$stateParams.tag]
+                            };
+                            return MangaService
+                                    .getMangaList(params);
+                        }]
+                }
             });
 
 
