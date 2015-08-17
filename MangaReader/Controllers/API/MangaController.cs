@@ -157,15 +157,15 @@ namespace MangaReader.Controllers.API
 
             var matchingManga = db.Manga
                                 .Where(m =>
-                                    m.Name.Equals(query, StringComparison.InvariantCultureIgnoreCase) ||
-                                    (m.Artist != null && m.Artist.Name.Equals(query, StringComparison.InvariantCultureIgnoreCase)) ||
-                                    (m.Series != null && m.Series.Name.Equals(query, StringComparison.InvariantCultureIgnoreCase)) ||
-                                    (m.Collection != null && m.Collection.Name.Equals(query, StringComparison.InvariantCultureIgnoreCase))
+                                    m.Name.Contains(query) ||
+                                    (m.Artist != null && m.Artist.Name.Contains(query)) ||
+                                    (m.Series != null && m.Series.Name.Contains(query)) ||
+                                    (m.Collection != null && m.Collection.Name.Contains(query))
                                 )
                                 .ToList();
 
             var matchingTags = db.Tags
-                                .Where(t => t.Name.Equals(query, StringComparison.InvariantCultureIgnoreCase))
+                                .Where(t => t.Name.Contains(query))
                                 .Select(t => t.Manga)
                                 .ToList();
 
@@ -239,8 +239,8 @@ namespace MangaReader.Controllers.API
                 orderedMangaList = mangaList.OrderByDescending(m => m.Date);
             }
 
-            if (order.Equals("asc", StringComparison.InvariantCultureIgnoreCase) ||
-                order.Equals("ascending", StringComparison.InvariantCultureIgnoreCase))
+            if (order.Equals("asc", StringComparison.OrdinalIgnoreCase) ||
+                order.Equals("ascending", StringComparison.OrdinalIgnoreCase))
             {
                 orderedMangaList = mangaList.Reverse();
             }
