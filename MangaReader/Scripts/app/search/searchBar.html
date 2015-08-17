@@ -1,1 +1,12 @@
-﻿<input type="text" class="form-control" ng-model="query"><button type="submit" class="btn btn-default">Search</button>
+﻿<form class="form-inline search-bar">
+    <div class="form-group">
+        <input type="text"
+               class="form-control"
+               ng-model="query">
+    </div>
+    <button type="submit"
+            class="btn btn-default"
+            ng-click="search()">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    </button>
+</form>

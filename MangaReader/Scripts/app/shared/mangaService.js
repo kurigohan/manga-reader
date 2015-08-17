@@ -8,7 +8,7 @@
     function MangaService($http, Manga) {
         return {
             getManga: getManga,
-            getAllManga: getAllManga,
+            getMangaBySearch: getMangaBySearch,
             getMangaList: getMangaList,
             getPagePath: getPagePath
         };
@@ -24,14 +24,7 @@
                     .then(Manga.fromJson);
         }
 
-        function getAllManga() {
-            return $http
-                    .get('/api/manga')
-                    .then(success)
-                    .then(Manga.fromJson);
-        }
-
-        function getMangaList(params) {
+        function getMangaBySearch(params) {
             var query = '';
 
             if (params) {
@@ -44,6 +37,53 @@
                 if (params.pageNumber) {
                     queryParams += '&pageNumber=' + params.pageNumber;
                 }
+                if (params.order) {
+                    queryParams += '&order=' + params.order;
+                }
+
+                if (params.orderBy) {
+                    queryParams += '&orderBy=' + params.orderBy;
+                }
+
+                if (params.query) {
+                    queryParams += '&query=' + params.query;
+                }
+
+                query += queryParams.substring(1);
+            }
+
+            return $http
+                    .get('/api/manga/search' + query)
+                    .then(success)
+                    .then(function (data) {
+                        data.mangaList = Manga.fromJson(data.mangaList);
+                        return data;
+                    });
+        }
+
+        function getMangaList(params) {
+            var query = '';
+
+            if (params) {
+                query = '?';
+                var queryParams = '';
+
+                if (params.pageSize) {
+                    queryParams += '&pageSize=' + params.pageSize;
+                }
+
+                if (params.pageNumber) {
+                    queryParams += '&pageNumber=' + params.pageNumber;
+                }
+
+                if (params.order) {
+                    queryParams += '&order=' + params.order;
+                }
+
+                if (params.orderBy) {
+                    queryParams += '&orderBy=' + params.orderBy;
+                }
+
                 if (params.artistId) {
                     queryParams += '&artistId=' + params.artistId;
                 }
@@ -65,6 +105,7 @@
                         queryParams += '&tags=' + t;
                     });
                 }
+
 
                 query += queryParams.substring(1);
             }

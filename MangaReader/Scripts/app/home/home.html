@@ -1,7 +1,7 @@
-﻿<div class="row">
+﻿<div class="container">
     <manga-gallery data="Home.mangaList.mangaList"></manga-gallery>
 </div>
-<div class="row text-center" ng-if="Home.mangaList.totalPages > 1">
+<div class="text-center container">
     <pagination ng-model="Home.currentPage"
                 total-items="Home.mangaList.totalCount"
                 items-per-page="::Home.itemsPerPage"

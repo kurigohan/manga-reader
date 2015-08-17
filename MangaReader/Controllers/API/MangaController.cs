@@ -167,6 +167,8 @@ namespace MangaReader.Controllers.API
 
             var mangaDTOList = ConvertToDTO(matchingManga.Union(matchingTags));
 
+            /* Sort */
+            mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
 
             /* Get manga tags */
             foreach (var manga in mangaDTOList)
@@ -177,8 +179,7 @@ namespace MangaReader.Controllers.API
                              .ToList();
             }
 
-            /* Sort */
-            mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
+
 
             var totalCount = mangaDTOList.Count();
             var totalPages = pageSize > 0 && pageNumber > 0 ?

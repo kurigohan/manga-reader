@@ -163,12 +163,12 @@
                 templateUrl: 'tags/mangaByTag.html',
                 controller: 'MangaByTagController',
                 controllerAs: 'MangaByTag',
-                params: { tag: ''},
+                params: { tag: '' },
                 resolve: {
-                   tag: ['$stateParams',
-                        function ($stateParams) {
-                            return $stateParams.tag;
-                        }],
+                    tag: ['$stateParams',
+                         function ($stateParams) {
+                             return $stateParams.tag;
+                         }],
                     mangaList: ['$stateParams', 'MangaService', 'AppSettings',
                         function ($stateParams, MangaService, AppSettings) {
                             var params = {
@@ -180,9 +180,29 @@
                                     .getMangaList(params);
                         }]
                 }
+            })
+            .state('search', {
+                url: '/search/:query',
+                templateUrl: 'search/search.html',
+                controller: 'SearchController',
+                controllerAs: 'Search',
+                params: { tag: '' },
+                resolve: {
+                    query: ['$stateParams',
+                            function ($stateParams) {
+                                return $stateParams.query;
+                            }],
+                    mangaList: ['$stateParams', 'MangaService', 'AppSettings',
+                        function ($stateParams, MangaService, AppSettings) {
+                            var params = {
+                                pageSize: AppSettings.itemsPerPage,
+                                pageNumber: 1,
+                                query: $stateParams.query
+                            };
+                            return MangaService
+                                    .getMangaBySearch(params);
+                        }]
+                }
             });
-
-
-
     }
 })();

@@ -232,8 +232,8 @@
     <Content Include="Scripts\app\details\mangaDetailsController.js" />
     <Content Include="Scripts\app\home\home.html" />
     <Content Include="Scripts\app\home\homeController.js" />
+    <Content Include="Scripts\app\search\search.html" />
     <Content Include="Scripts\app\search\searchBar.html" />
-    <Content Include="Scripts\app\search\search.js" />
     <Content Include="Scripts\app\search\searchBarDirective.js" />
     <Content Include="Scripts\app\series\mangaBySeries.html" />
     <Content Include="Scripts\app\series\mangaBySeriesController.js" />

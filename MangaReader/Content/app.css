@@ -111,3 +111,9 @@ ul.letter-nav li{
 ul.letter-nav li a{
     cursor: pointer; 
 }
+
+/* Search */
+
+.search-bar{
+    padding-top: .5em;
+}

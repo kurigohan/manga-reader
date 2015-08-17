@@ -8,23 +8,23 @@
          <div class="col-md-8 no-padding">
              <h2 class="manga-title"><a ui-sref="details({mangaId: manga.id })">{{ ::manga.name }}</a></h2>
              <div class="row" ng-if="::manga.artist">
-                 <div class="col-md-4">Artist</div>
+                 <div class="col-md-3">Artist</div>
                  <div class="col-md-8">{{ ::manga.artist }}</div>
              </div>
              <div class="row" ng-if="::manga.series">
-                 <div class="col-md-4">Series</div>
+                 <div class="col-md-3">Series</div>
                  <div class="col-md-8">{{ ::manga.series }}</div>
              </div>
              <div class="row" ng-if="::manga.collection">
-                 <div class="col-md-4">Collection</div>
+                 <div class="col-md-3">Collection</div>
                  <div class="col-md-8">{{ ::manga.collection }}</div>
              </div>
              <div class="row" ng-if="::manga.language">
-                 <div class="col-md-4">Language</div>
+                 <div class="col-md-3">Language</div>
                  <div class="col-md-8">{{ ::manga.language }}</div>
              </div>
              <div class="row" ng-if="::manga.tags.length > 0">
-                 <div class="col-md-4">Tags</div>
+                 <div class="col-md-3">Tags</div>
                  <div class="col-md-8">
                      <button class="btn btn-primary btn-sm manga-tag" ng-repeat="tag in manga.tags">
                          {{ ::tag }}

@@ -1,0 +1,12 @@
+﻿<h1>{{ ::Search.query }}</h1>
+<div class="container">
+    <manga-gallery data="Search.mangaList.mangaList"></manga-gallery>
+</div>
+<div class="container text-center" ng-if="Search.mangaList.totalPages > 1">
+    <pagination ng-model="Search.currentPage"
+                total-items="Search.mangaList.totalCount"
+                items-per-page="::Search.itemsPerPage"
+                boundary-links="true"
+                ng-change="Search.pageChanged()">
+    </pagination>
+</div>
