@@ -232,6 +232,9 @@
     <Content Include="Scripts\app\details\mangaDetailsController.js" />
     <Content Include="Scripts\app\home\home.html" />
     <Content Include="Scripts\app\home\homeController.js" />
+    <Content Include="Scripts\app\search\searchBar.html" />
+    <Content Include="Scripts\app\search\search.js" />
+    <Content Include="Scripts\app\search\searchBarDirective.js" />
     <Content Include="Scripts\app\series\mangaBySeries.html" />
     <Content Include="Scripts\app\series\mangaBySeriesController.js" />
     <Content Include="Scripts\app\series\series.html" />
@@ -242,6 +245,7 @@
     <Content Include="Scripts\app\shared\artistsService.js" />
     <Content Include="Scripts\app\shared\mangaModel.js" />
     <Content Include="Scripts\app\shared\mangaService.js" />
+    <Content Include="Scripts\app\search\searchController.js" />
     <Content Include="Scripts\app\shared\seriesService.js" />
     <Content Include="Scripts\app\shared\tagsService.js" />
     <Content Include="Scripts\app\tags\mangaByTag.html" />
@@ -343,7 +347,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Scripts\app\search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
