@@ -1,7 +1,7 @@
 ﻿<h1>{{ ::MangaByArtist.artist.name }}</h1>
-<div class="container">
-    <manga-gallery data="MangaByArtist.mangaList.mangaList"></manga-gallery>
-</div>
+
+<manga-gallery data="MangaByArtist.mangaList.mangaList"></manga-gallery>
+
 <div class="container text-center" ng-if="MangaByArtist.mangaList.totalPages > 1">
     <pagination ng-model="MangaByArtist.currentPage"
                 total-items="MangaByArtist.mangaList.totalCount"

@@ -67,13 +67,6 @@ namespace MangaReader.Controllers.API
             mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
 
 
-            /* Paginate */
-            if (pageSize > 0 && pageNumber > 0)
-            {
-                mangaDTOList = mangaDTOList
-                                    .Skip((pageNumber - 1) * pageSize)
-                                    .Take(pageSize);
-            }
 
             /* Get manga tags */
             foreach (var manga in mangaDTOList)
@@ -91,11 +84,22 @@ namespace MangaReader.Controllers.API
                                 .Where(m => m.Tags.Intersect(tags).Count() == tags.Count());
             }
 
+
             /* Get pagination info */
 
             var totalCount = mangaDTOList.Count();
-            var totalPages = pageSize > 0 && pageNumber > 0 ? 
-                                (int) Math.Ceiling((double)totalCount / pageSize) : 1;
+            var totalPages = pageSize > 0 && pageNumber > 0 ?
+                                (int)Math.Ceiling((double)totalCount / pageSize) : 1;
+
+            /* Paginate */
+            if (pageSize > 0 && pageNumber > 0)
+            {
+                mangaDTOList = mangaDTOList
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize);
+            }
+
+
 
             /* Return results */
 
@@ -167,6 +171,8 @@ namespace MangaReader.Controllers.API
 
             var mangaDTOList = ConvertToDTO(matchingManga.Union(matchingTags));
 
+
+
             /* Sort */
             mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
 
@@ -179,11 +185,19 @@ namespace MangaReader.Controllers.API
                              .ToList();
             }
 
-
-
+            /* Get pagination info */
             var totalCount = mangaDTOList.Count();
             var totalPages = pageSize > 0 && pageNumber > 0 ?
                                 (int)Math.Ceiling((double)totalCount / pageSize) : 1;
+
+            /* Paginate */
+            if (pageSize > 0 && pageNumber > 0)
+            {
+                mangaDTOList = mangaDTOList
+                                    .Skip((pageNumber - 1) * pageSize)
+                                    .Take(pageSize);
+            }
+
 
             /* Return results */
 

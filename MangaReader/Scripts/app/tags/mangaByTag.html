@@ -1,7 +1,7 @@
 ﻿<h1>{{ ::MangaByTag.tag}}</h1>
-<div class="container">
-    <manga-gallery data="MangaByTag.mangaList.mangaList"></manga-gallery>
-</div>
+
+<manga-gallery data="MangaByTag.mangaList.mangaList"></manga-gallery>
+
 <div class="container text-center" ng-if="MangaByTag.mangaList.totalPages > 1">
     <pagination ng-model="MangaByTag.currentPage"
                 total-items="MangaByTag.mangaList.totalCount"

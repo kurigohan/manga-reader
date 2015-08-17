@@ -20,6 +20,10 @@ div.manga{
 }
 
 div.manga-gallery{
+    padding: 0;
+}
+
+div.manga-panel{
     padding-right:0;
 }
 

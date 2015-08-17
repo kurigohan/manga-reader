@@ -1,7 +1,7 @@
 ﻿<h1>{{ ::Search.query }}</h1>
-<div class="container">
-    <manga-gallery data="Search.mangaList.mangaList"></manga-gallery>
-</div>
+
+<manga-gallery data="Search.mangaList.mangaList"></manga-gallery>
+
 <div class="container text-center" ng-if="Search.mangaList.totalPages > 1">
     <pagination ng-model="Search.currentPage"
                 total-items="Search.mangaList.totalCount"

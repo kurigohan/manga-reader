@@ -270,8 +270,10 @@ namespace MangaReader.Controllers.MVC
         {
             using (var origImg = Image.FromFile(imgPath, true))
             {
-                var img = new Bitmap(origImg, new Size(width, height));
-                img.Save(Path.Combine(Path.GetDirectoryName(imgPath), name + ".jpg"), ImageFormat.Jpeg);
+                using (var img = new Bitmap(origImg, new Size(width, height)))
+                {
+                    img.Save(Path.Combine(Path.GetDirectoryName(imgPath), name + ".jpg"), ImageFormat.Jpeg);
+                }
             }
         }
 
@@ -312,6 +314,7 @@ namespace MangaReader.Controllers.MVC
                 }
 
                 img.Save(savePath, ImageFormat.Jpeg);
+                img.Dispose();
             }
 
         }
@@ -335,6 +338,8 @@ namespace MangaReader.Controllers.MVC
                 g.PixelOffsetMode = PixelOffsetMode.HighQuality;
                 g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
             }
+
+            imgToResize.Dispose();
             return (Image)b;
         }
 
