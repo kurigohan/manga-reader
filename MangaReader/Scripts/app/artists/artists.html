@@ -1,15 +1,19 @@
 ﻿<ul class="nav navbar-nav letter-nav">
-    <li ng-repeat="(letter, artist) in Artists.artistsByLetter">
+    <li ng-repeat="letter in Artists.letters">
         <a ng-click="Artists.goToLetter(letter)">{{ ::letter }}</a>
     </li>
 </ul>
-<div class="col-md-4" 
-     ng-repeat="(letter, artistList) in Artists.artistsByLetter" 
-     id="{{ ::letter }}">
-    <h4>{{ ::letter }}</h4>
-    <ul class="category-results">
-        <li ng-repeat="artist in artistList">
-            <a ui-sref="mangaByArtist({artist: artist, artistId: artist.id })">{{ ::artist.name }}</a>
-        </li>
-    </ul>
+<div class="container">
+    <div class="row" ng-repeat="row in Artists.rows">
+        <div class="col-md-3"
+             ng-repeat="(letter, artistList) in row"
+             id="{{ ::letter }}">
+            <h4>{{ ::letter }}</h4>
+            <ul class="category-results">
+                <li ng-repeat="artist in artistList">
+                    <a ui-sref="mangaByArtist({artist: artist, artistId: artist.id })">{{ ::artist.name }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>

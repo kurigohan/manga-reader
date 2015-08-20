@@ -15,19 +15,35 @@
 
         var vm = this;
 
-        // partition artists by first letter
+        // partition artists by first currentLetter
         var artistsByLetter = {};
-        var letter, firstLetter, artistList;
+        var currentLetter, firstLetter, artistList;
+        var rowSize = 4;
+        var rows = [];
+        var count = 0; // length of artistsByLetter
+        var letters = []; // list of available letters for nav
+
+        // partition artists by currentLetter and into rows
         angular.forEach(artists, function (a) {
             firstLetter = a.name.charAt(0).toUpperCase();
-            if (letter != firstLetter) {
-                letter = firstLetter;
-                artistsByLetter[letter] = [];
+            if (currentLetter != firstLetter) {
+                currentLetter = firstLetter;
+                letters.push(currentLetter);
+                if (count == rowSize) {
+                    rows.push(artistsByLetter);
+                    artistsByLetter = {};
+                    count = 0;
+                }
+                artistsByLetter[currentLetter] = [];
+                count++;
             }
-            artistsByLetter[letter].push(a);
-        });
 
-        vm.artistsByLetter = artistsByLetter;
+            artistsByLetter[currentLetter].push(a);
+        });
+        rows.push(artistsByLetter);
+
+        vm.letters = letters;
+        vm.rows = rows;
 
         vm.goToLetter = function (dest) {
             $location.hash(dest);

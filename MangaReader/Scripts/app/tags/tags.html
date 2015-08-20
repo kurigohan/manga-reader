@@ -1,15 +1,19 @@
 ﻿<ul class="nav navbar-nav letter-nav">
-    <li ng-repeat="(letter, tag) in Tags.tagsByLetter">
+    <li ng-repeat="letter in Tags.letters">
         <a ng-click="Tags.goToLetter(letter)">{{ ::letter }}</a>
     </li>
 </ul>
-<div class="col-md-4"
-     ng-repeat="(letter, tagList) in Tags.tagsByLetter"
-     id="{{ ::letter }}">
-    <h4>{{ ::letter }}</h4>
-    <ul class="category-results">
-        <li ng-repeat="tag in tagList">
-            <a ui-sref="mangaByTag({tag: tag})">{{ ::tag }}</a>
-        </li>
-    </ul>
+<div class="container">
+    <div class="row" ng-repeat="row in Tags.rows">
+        <div class="col-md-3"
+             ng-repeat="(letter, tagList) in row"
+             id="{{ ::letter }}">
+            <h4>{{ ::letter }}</h4>
+            <ul class="category-results">
+                <li ng-repeat="tag in tagList">
+                    <a ui-sref="mangaByTag({tag: tag})">{{ ::tag }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
