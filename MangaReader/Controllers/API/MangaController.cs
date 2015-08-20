@@ -30,10 +30,69 @@ namespace MangaReader.Controllers.API
             int? seriesId = null,
             int? collectionId = null,
             int? languageId = null,
+            string artist = "",
+            string series = "",
+            string collection = "",
+            string language = "",
             [FromUri] string[] tags = null)
         {
 
             IEnumerable<Manga> mangaList = db.Manga.ToList();
+
+            if (!String.IsNullOrEmpty(artist))
+            {
+                var tempArtist = db.Artists.FirstOrDefault(a => a.Name.Equals(artist, StringComparison.OrdinalIgnoreCase));
+                if (tempArtist != null)
+                {
+                    artistId = tempArtist.Id;
+                }
+                else
+                {
+                    return Ok(new { TotalCount = 0, TotalPages = 0, MangaList = new List<MangaDTO>() });
+                }
+
+            }
+
+            if (!String.IsNullOrEmpty(series))
+            {
+                var tempSeries = db.Series.FirstOrDefault(s => s.Name.Equals(series, StringComparison.OrdinalIgnoreCase));
+                if (tempSeries != null)
+                {
+                    seriesId = tempSeries.Id;
+                }
+                else
+                {
+                    return Ok(new { TotalCount = 0, TotalPages = 0, MangaList = new List<MangaDTO>() });
+                }
+
+            }
+
+            if (!String.IsNullOrEmpty(collection))
+            {
+                var tempCollection = db.Collections.FirstOrDefault(c => c.Name.Equals(collection, StringComparison.OrdinalIgnoreCase));
+                if (tempCollection != null)
+                {
+                    collectionId = tempCollection.Id;
+                }
+                else
+                {
+                    return Ok(new { TotalCount = 0, TotalPages = 0, MangaList = new List<MangaDTO>() });
+                }
+
+            }
+
+            if (!String.IsNullOrEmpty(language))
+            {
+                var tempLanguage = db.Languages.FirstOrDefault(a => a.Name.Equals(language, StringComparison.OrdinalIgnoreCase));
+                if (tempLanguage != null)
+                {
+                    languageId = tempLanguage.Id;
+                }
+                else
+                {
+                    return Ok(new { TotalCount = 0, TotalPages = 0, MangaList = new List<MangaDTO>() });
+                }
+            }
 
             /* Filter the manga list */
             if (artistId != null)
@@ -61,12 +120,13 @@ namespace MangaReader.Controllers.API
             }
 
             /* Convert to MangaDTO list */
-            var mangaDTOList = ConvertToDTO(mangaList);
+            IEnumerable<MangaDTO> mangaDTOList = ConvertToDTO(mangaList);
 
             /* Sort */
-            mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
-
-
+            if (!String.IsNullOrEmpty(orderBy))
+            {
+                mangaDTOList = GetOrderedMangaList(mangaDTOList, orderBy, order);
+            }
 
             /* Get manga tags */
             foreach (var manga in mangaDTOList)
@@ -169,12 +229,13 @@ namespace MangaReader.Controllers.API
                                 .Select(t => t.Manga)
                                 .ToList();
 
-            var mangaDTOList = ConvertToDTO(matchingManga.Union(matchingTags));
-
-
+            IEnumerable<MangaDTO> mangaDTOList = ConvertToDTO(matchingManga.Union(matchingTags));
 
             /* Sort */
-            mangaDTOList = GetOrderedMangaList(mangaDTOList, order, orderBy);
+            if (!String.IsNullOrEmpty(orderBy))
+            {
+                mangaDTOList = GetOrderedMangaList(mangaDTOList, orderBy, order);
+            }
 
             /* Get manga tags */
             foreach (var manga in mangaDTOList)
@@ -214,12 +275,11 @@ namespace MangaReader.Controllers.API
 
 
 
-        private IEnumerable<MangaDTO> GetOrderedMangaList(IEnumerable<MangaDTO> mangaList, string order, string orderBy)
+        private IEnumerable<MangaDTO> GetOrderedMangaList(IEnumerable<MangaDTO> mangaList, string orderBy, string order)
         {
             IEnumerable<MangaDTO> orderedMangaList;
 
-            if (orderBy.Length > 0 &&
-                typeof(MangaDTO)
+            if (typeof(MangaDTO)
                 .GetProperty(orderBy,
                     BindingFlags.IgnoreCase
                     | BindingFlags.Public
@@ -242,14 +302,14 @@ namespace MangaReader.Controllers.API
             if (order.Equals("asc", StringComparison.OrdinalIgnoreCase) ||
                 order.Equals("ascending", StringComparison.OrdinalIgnoreCase))
             {
-                orderedMangaList = mangaList.Reverse();
+                orderedMangaList = orderedMangaList.Reverse();
             }
 
-            return orderedMangaList.ToList();
+            return orderedMangaList;
         }
 
 
-        private IEnumerable<MangaDTO> ConvertToDTO(IEnumerable<Manga> mangaList)
+        private List<MangaDTO> ConvertToDTO(IEnumerable<Manga> mangaList)
         {
             return mangaList.Select(m => new MangaDTO
                                 {
@@ -262,7 +322,8 @@ namespace MangaReader.Controllers.API
                                     PageCount = m.PageCount,
                                     Path = m.Path,
                                     Date = m.Date
-                                });
+                                })
+                                .ToList();
         }
 
         /*

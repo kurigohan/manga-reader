@@ -12,7 +12,12 @@
         vm.itemsPerPage = AppSettings.itemsPerPage;
 
         vm.pageChanged = function () {
-            var params = { pageSize: vm.itemsPerPage, pageNumber: vm.currentPage };
+            var params = {
+                pageSize: vm.itemsPerPage,
+                pageNumber: vm.currentPage,
+                orderBy: AppSettings.defaultOrderBy,
+                order: AppSettings.defaultOrder
+            };
             MangaService
                 .getMangaList(params)
                 .then(function (page) {

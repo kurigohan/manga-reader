@@ -109,7 +109,7 @@
 
                 query += queryParams.substring(1);
             }
-
+            console.log(query);
             return $http
                     .get('/api/manga' + query)
                     .then(success)

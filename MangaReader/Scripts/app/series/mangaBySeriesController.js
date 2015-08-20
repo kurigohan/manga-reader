@@ -15,7 +15,9 @@
             var params = {
                 pageSize: vm.itemsPerPage,
                 pageNumber: vm.currentPage,
-                seriesId: series.Id
+                orderBy: AppSettings.defaultOrderBy,
+                order: AppSettings.defaultOrder,
+                seriesId: series.id
             };
 
             MangaService

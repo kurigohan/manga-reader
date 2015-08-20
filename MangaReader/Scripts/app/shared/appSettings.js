@@ -5,19 +5,19 @@
         .provider('AppSettings', AppSettings);
 
     function AppSettings() {
-        var itemsPerPage = 12;
+        var settings = this;
+        settings.itemsPerPage = 12;
+        settings.defaultOrderBy = 'date';
+        settings.defaultOrder = 'desc';
 
         return {
-            setItemsPerPage: setItemsPerPage,
             $get: function () {
                 return {
-                    itemsPerPage: itemsPerPage
+                    itemsPerPage: settings.itemsPerPage,
+                    defaultOrderBy: settings.defaultOrderBy,
+                    defaultOrder: settings.defaultOrder
                 }
             }
-        }
-
-        function setItemsPerPage(value) {
-            itemsPerPage = value;
         }
     }
 

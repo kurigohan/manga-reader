@@ -29,7 +29,9 @@
                         function (MangaService, AppSettings) {
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
-                                pageNumber: 1
+                                pageNumber: 1,
+                                orderBy: AppSettings.defaultOrderBy,
+                                order: AppSettings.defaultOrder,
                             };
                             return MangaService
                                     .getMangaList(params);
@@ -85,7 +87,6 @@
                 templateUrl: 'artists/mangaByArtist.html',
                 controller: 'MangaByArtistController',
                 controllerAs: 'MangaByArtist',
-                params: { artist: null },
                 resolve: {
                     artist: ['$stateParams', 'ArtistsService',
                         function ($stateParams, ArtistsService) {
@@ -101,7 +102,9 @@
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
                                 pageNumber: 1,
-                                artistId: artistId
+                                orderBy: AppSettings.defaultOrderBy,
+                                order: AppSettings.defaultOrder,
+                                artistId: artistId,
                             };
                             return MangaService
                                     .getMangaList(params);
@@ -124,7 +127,6 @@
                 templateUrl: 'series/mangaBySeries.html',
                 controller: 'MangaBySeriesController',
                 controllerAs: 'MangaBySeries',
-                params: { series: null },
                 resolve: {
                     series: ['$stateParams', 'SeriesService',
                         function ($stateParams, SeriesService) {
@@ -140,6 +142,8 @@
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
                                 pageNumber: 1,
+                                orderBy: AppSettings.defaultOrderBy,
+                                order: AppSettings.defaultOrder,
                                 seriesId: seriesId
                             };
                             return MangaService
@@ -163,7 +167,6 @@
                 templateUrl: 'tags/mangaByTag.html',
                 controller: 'MangaByTagController',
                 controllerAs: 'MangaByTag',
-                params: { tag: '' },
                 resolve: {
                     tag: ['$stateParams',
                          function ($stateParams) {
@@ -174,6 +177,8 @@
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
                                 pageNumber: 1,
+                                orderBy: AppSettings.defaultOrderBy,
+                                order: AppSettings.defaultOrder,
                                 tags: [$stateParams.tag]
                             };
                             return MangaService
@@ -186,7 +191,6 @@
                 templateUrl: 'search/search.html',
                 controller: 'SearchController',
                 controllerAs: 'Search',
-                params: { tag: '' },
                 resolve: {
                     query: ['$stateParams',
                             function ($stateParams) {
@@ -197,6 +201,8 @@
                             var params = {
                                 pageSize: AppSettings.itemsPerPage,
                                 pageNumber: 1,
+                                orderBy: AppSettings.defaultOrderBy,
+                                order: AppSettings.defaultOrder,
                                 query: $stateParams.query
                             };
                             return MangaService
