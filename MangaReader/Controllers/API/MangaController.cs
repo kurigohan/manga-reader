@@ -81,19 +81,6 @@ namespace MangaReader.Controllers.API
 
             }
 
-            if (!String.IsNullOrEmpty(language))
-            {
-                var tempLanguage = db.Languages.FirstOrDefault(a => a.Name.Equals(language, StringComparison.OrdinalIgnoreCase));
-                if (tempLanguage != null)
-                {
-                    languageId = tempLanguage.Id;
-                }
-                else
-                {
-                    return Ok(new { TotalCount = 0, TotalPages = 0, MangaList = new List<MangaDTO>() });
-                }
-            }
-
             /* Filter the manga list */
             if (artistId != null)
             {
@@ -111,12 +98,6 @@ namespace MangaReader.Controllers.API
             {
                 mangaList = mangaList
                             .Where(m => m.CollectionId == collectionId);
-            }
-
-            if (languageId != null)
-            {
-                mangaList = mangaList
-                             .Where(m => m.LanguageId == languageId);
             }
 
             /* Convert to MangaDTO list */
@@ -190,7 +171,6 @@ namespace MangaReader.Controllers.API
                 Series = m.Series != null ? m.Series.Name : "",
                 Collection = m.Collection != null ? m.Collection.Name : "",
                 Artist = m.Artist != null ? m.Artist.Name : "",
-                Language = m.Language != null ? m.Language.Name : "",
                 PageCount = m.PageCount,
                 Path = m.Path,
                 Date = m.Date
@@ -318,7 +298,6 @@ namespace MangaReader.Controllers.API
                                     Series = m.Series != null ? m.Series.Name : "",
                                     Collection = m.Collection != null ? m.Collection.Name : "",
                                     Artist = m.Artist != null ? m.Artist.Name : "",
-                                    Language = m.Language != null ? m.Language.Name : "",
                                     PageCount = m.PageCount,
                                     Path = m.Path,
                                     Date = m.Date

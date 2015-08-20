@@ -20,8 +20,6 @@ namespace MangaReader.Models
         public int? CollectionId { get; set; }
         [DisplayName("Artist")]
         public int? ArtistId { get; set; }
-        [DisplayName("Language")]
-        public int? LanguageId { get; set; }
 
         public string Tags { get; set; }
 

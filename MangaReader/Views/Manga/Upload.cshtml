@@ -37,14 +37,6 @@
                 @Html.DropDownList("ArtistId", null, htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LanguageId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LanguageId", null, htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -74,14 +66,22 @@
         </div>
     </div>
 </form>
+<div id="loading-screen">
+    <img src="~/Content/spinner.svg" />
+</div>
+
 @section scripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
             $(':button').click(function () {
-              //  event.preventDefault();
-                var formData = new FormData($('form')[0]);
-                var url = $('form').attr("action");
+                //  event.preventDefault();
+                $('#loading-screen').show();
+
+                var formSelector = $('#uploadForm');
+                var formData = new FormData(formSelector[0]);
+                var url = formSelector.attr("action");
+
                 $.ajax({
                     url: url,  //Server script to process data
                     type: 'POST',
@@ -90,7 +90,13 @@
                     //Options to tell jQuery not to process data or worry about content-type.
                     cache: false,
                     contentType: false,
-                    processData: false
+                    processData: false,
+                    success: function () {
+                        $('#loading-screen').hide();
+                        // reset form
+                        formSelector.wrap('<form>').closest('form').get(0).reset();
+                        formSelector.unwrap();
+                    }
                 });
             });
         });

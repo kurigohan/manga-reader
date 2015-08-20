@@ -26,9 +26,6 @@ namespace MangaReader.Models
         public int? ArtistId { get; set; }
         public virtual Artist Artist { get; set; }
 
-        public int? LanguageId { get; set; }
-        public virtual Language Language { get; set; }
-
         public int PageCount { get; set; }
 
         public string Path { get; set; }
@@ -47,12 +44,6 @@ namespace MangaReader.Models
     }
 
     public partial class Collection
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
-    public partial class Language
     {
         public int Id { get; set; }
         public string Name { get; set; }

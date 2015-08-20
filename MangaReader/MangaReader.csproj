@@ -196,7 +196,6 @@
     <Compile Include="Controllers\API\ArtistsController.cs" />
     <Compile Include="Controllers\MVC\ArtistsController.cs" />
     <Compile Include="Controllers\MVC\HomeController.cs" />
-    <Compile Include="Controllers\MVC\LanguagesController.cs" />
     <Compile Include="Controllers\MVC\ManageController.cs" />
     <Compile Include="Controllers\MVC\MangaController.cs" />
     <Compile Include="Controllers\MVC\CollectionsController.cs" />
@@ -327,11 +326,6 @@
     <Content Include="Views\Series\Details.cshtml" />
     <Content Include="Views\Series\Edit.cshtml" />
     <Content Include="Views\Series\Index.cshtml" />
-    <Content Include="Views\Languages\Create.cshtml" />
-    <Content Include="Views\Languages\Delete.cshtml" />
-    <Content Include="Views\Languages\Details.cshtml" />
-    <Content Include="Views\Languages\Edit.cshtml" />
-    <Content Include="Views\Languages\Index.cshtml" />
     <Content Include="Views\Tags\Create.cshtml" />
     <Content Include="Views\Tags\Delete.cshtml" />
     <Content Include="Views\Tags\Details.cshtml" />

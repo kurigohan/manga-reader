@@ -19,7 +19,6 @@ namespace MangaReader.Models
         public DbSet<Series> Series { get; set; }
         public DbSet<Collection> Collections { get; set; }
         public DbSet<Artist> Artists { get; set; }
-        public DbSet<Language> Languages { get; set; }
         public DbSet<Tag> Tags { get; set; }
         
         public static ApplicationDbContext Create()

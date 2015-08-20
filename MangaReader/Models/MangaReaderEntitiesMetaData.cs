@@ -44,14 +44,6 @@ namespace MangaReader.Models
         public string Name { get; set; }
     }
 
-    [MetadataType(typeof(LanguageMetaData))]
-    public partial class Language { }
-    public class LanguageMetaData
-    {
-        [Display(Name = "Language")]
-        public string Name { get; set; }
-    }
-
     [MetadataType(typeof(TagMetaData))]
     public partial class Tag { }
     public class TagMetaData

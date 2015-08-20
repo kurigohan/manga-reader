@@ -31,7 +31,7 @@ namespace MangaReader.Controllers.MVC
         // GET: Manga
         public ActionResult Index()
         {
-            var manga = db.Manga.Include(m => m.Artist).Include(m => m.Language).Include(m => m.Collection).Include(m => m.Series);
+            var manga = db.Manga.Include(m => m.Artist).Include(m => m.Collection).Include(m => m.Series);
             return View(manga.ToList());
         }
 
@@ -54,7 +54,6 @@ namespace MangaReader.Controllers.MVC
         public ActionResult Create()
         {
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name");
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name");
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name");
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name");
             return View();
@@ -65,7 +64,7 @@ namespace MangaReader.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Date,SeriesId,CollectionId,ArtistId,LanguageId,PageCount,Path")] Manga manga)
+        public ActionResult Create([Bind(Include = "Id,Name,Date,SeriesId,CollectionId,ArtistId,PageCount,Path")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +74,6 @@ namespace MangaReader.Controllers.MVC
             }
 
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name", manga.ArtistId);
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", manga.LanguageId);
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name", manga.CollectionId);
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name", manga.SeriesId);
             return View(manga);
@@ -94,7 +92,6 @@ namespace MangaReader.Controllers.MVC
                 return HttpNotFound();
             }
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name", manga.ArtistId);
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", manga.LanguageId);
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name", manga.CollectionId);
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name", manga.SeriesId);
             return View(manga);
@@ -105,7 +102,7 @@ namespace MangaReader.Controllers.MVC
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Date,SeriesId,CollectionId,ArtistId,LanguageId,PageCount,Path")] Manga manga)
+        public ActionResult Edit([Bind(Include = "Id,Name,Date,SeriesId,CollectionId,ArtistId,PageCount,Path")] Manga manga)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +111,6 @@ namespace MangaReader.Controllers.MVC
                 return RedirectToAction("Index");
             }
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name", manga.ArtistId);
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", manga.LanguageId);
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name", manga.CollectionId);
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name", manga.SeriesId);
             return View(manga);
@@ -153,7 +149,6 @@ namespace MangaReader.Controllers.MVC
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name");
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name");
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name");
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name");
 
             return View();
         }
@@ -181,7 +176,6 @@ namespace MangaReader.Controllers.MVC
                 manga.ArtistId = model.ArtistId;
                 manga.SeriesId = model.SeriesId;
                 manga.CollectionId = model.CollectionId;
-                manga.LanguageId = model.LanguageId;
                 manga.Date = DateTime.Now;
                 manga.PageCount = 0;
                 manga.Path = "";
@@ -239,7 +233,6 @@ namespace MangaReader.Controllers.MVC
             ViewBag.ArtistId = new SelectList(db.Artists, "Id", "Name", model.ArtistId);
             ViewBag.SeriesId = new SelectList(db.Series, "Id", "Name", model.SeriesId);
             ViewBag.CollectionId = new SelectList(db.Collections, "Id", "Name", model.CollectionId);
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", model.LanguageId);
 
             return View(model);
         }
