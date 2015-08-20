@@ -202,12 +202,11 @@ namespace MangaReader.Controllers.MVC
                 // Save to DB
                 db.SaveChanges();
                 
-
-
                 // Save archive to server
                 var backupDir = Server.MapPath(BACKUP_DIR);
                 var saveDir = Path.Combine(Server.MapPath(MANGA_DIR), manga.Id.ToString());
-                var filePath = Path.Combine(backupDir, model.FileUpload.FileName);
+                var backupName = "(" + manga.Id.ToString() + ") " + model.FileUpload.FileName;
+                var filePath = Path.Combine(backupDir, backupName);
 
                 if (!Directory.Exists(backupDir))
                 {

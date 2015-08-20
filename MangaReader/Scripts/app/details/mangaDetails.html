@@ -1,4 +1,4 @@
-﻿<div class="row manga-details img-rounded">
+﻿<div class="container manga-details img-rounded">
     <div class="col-md-6 text-center">
         <a ui-sref="viewer({manga: Details.manga, mangaId: Details.manga.id, pageStart: 1})">
             <img class="manga-cover" ng-src="{{ ::Details.mangaCover }}" />
@@ -32,7 +32,7 @@
         </div>
     </div>
 </div>
-<div class="row manga-preview text-center img-rounded">
+<div class="container manga-preview text-center img-rounded">
     <a ng-repeat="page in Details.pages"
        ui-sref="viewer({manga: Details.manga, mangaId: Details.manga.id, pageStart: $index + 1})">
         <img class="page-preview" ng-src="{{ Details.getPagePreview(page) }}" />

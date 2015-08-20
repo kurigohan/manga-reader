@@ -24,7 +24,8 @@ div.manga-gallery{
 }
 
 div.manga-panel{
-    padding-right:0;
+    padding-right: .5em;
+    padding-left: .5em;
 }
 
 img.manga-thumbnail{
@@ -32,7 +33,7 @@ img.manga-thumbnail{
     height:202px;
 }
 
-button.manga-tag{
+.manga-tag{
     margin-top: .5em;
     margin-right: .5em;
     padding: 0 .5em;
@@ -85,7 +86,7 @@ img.page-preview{
     padding: 1em;
 }
 
-button.manga-details-tag{
+.manga-details-tag{
     margin-top: .5em;
     margin-right: .5em;
     padding: 0 .5em;
@@ -103,16 +104,11 @@ ul.category-results{
 }
 
 ul.letter-nav{
-    list-style: none;
-   padding-left: 1em;
+    float: none;
 }
 
-ul.letter-nav li{
-     display: inline;
-     padding-right: 1em;
-}
 
-ul.letter-nav li a{
+ul.letter-nav li {
     cursor: pointer; 
 }
 
@@ -120,4 +116,5 @@ ul.letter-nav li a{
 
 .search-bar{
     padding-top: .5em;
+    padding-right: 1em;
 }

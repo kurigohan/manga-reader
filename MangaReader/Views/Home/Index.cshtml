@@ -1,22 +1,21 @@
-﻿@section AddToHead{
-    <base href="~/Scripts/app/" />
-    <link href="@Url.Content("~/Content/app.css")" rel="stylesheet" type="text/css" />
+﻿@{
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
-<div ng-app="mangaReader" class="app-view">
-    <div class="navbar app-nav">
+<div ng-app="mangaReader" class="container app-view">
+    <div class="navbar app-nav navbar-inverse">
         <ul class="nav navbar-nav">
             <li><a ui-sref="home()">Home</a></li>
             <li><a ui-sref="artists()">Artists</a></li>
             <li><a ui-sref="series()">Series</a></li>
             <li><a ui-sref="tags()">Tags</a></li>
+            <li><a href="/manga/upload">Upload</a></li>
         </ul>
-        <ul class="nav navbar-right">
+        <ul class="nav navbar-right search-bar">
             <li><search-bar></search-bar></li>
-
         </ul>
     </div>
-    <ui-view autoscroll="true"></ui-view>
+    <div ui-view autoscroll="true"></div>
 </div>
 
 
