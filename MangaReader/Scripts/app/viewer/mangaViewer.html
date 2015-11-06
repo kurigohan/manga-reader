@@ -1,0 +1,23 @@
+﻿<div class="text-center manga-viewer img-rounded">
+    <div class="row">
+        <page-navigation manga="::Viewer.manga"
+                         page-path="Viewer.pagePath"
+                         control="Viewer.navControl"
+                         current-page="Viewer.currentPage">
+
+        </page-navigation>
+    </div>
+    <div class="row">
+        <img class="manga-page"
+             ng-src="{{ Viewer.pagePath }}"
+             ng-click="Viewer.navControl.nextPage()" />
+    </div>
+    <div class="row">
+        <page-navigation manga="::Viewer.manga"
+                         page-path="Viewer.pagePath"
+                         control="Viewer.navControl"
+                         current-page="Viewer.currentPage">
+        </page-navigation>
+    </div>
+</div>
+
